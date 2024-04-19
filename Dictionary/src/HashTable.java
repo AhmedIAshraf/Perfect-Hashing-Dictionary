@@ -1,2 +1,3 @@
-public class HashTable {
+public class HashTable<T> {
+
 }

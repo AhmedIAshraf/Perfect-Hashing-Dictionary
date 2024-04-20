@@ -3,12 +3,11 @@ import java.util.Random;
 public class HashTable <T> {
 
     protected T[] primaryTable;
-    protected
-    protected int size=10;
+    protected int size = 10;
     protected byte[][] hashFunction;
-    protected int allocated=0;
-    protected int counterOfRehashing=0;
-    Random rand=new Random();
+    protected int allocated = 0;
+    protected int counterOfRehashing = 0;
+    private final Random rand = new Random();
 
     protected HashTable () {}
 
@@ -34,7 +33,7 @@ public class HashTable <T> {
         int index=0;
         String bin = Integer.toBinaryString(value.hashCode());
         byte word[] = new byte[32];
-        for (int i = 0; i < bin.length(); i++) { word[i] = (byte) (bin.indexOf(i) == '0'? 0 : 1); }
+        for (int i = 0; i < bin.length(); i++) { word[i] = (byte) (bin.indexOf(i) == '0' ? 0 : 1); }
         byte[] indexInBin = matrixMultiplication(this.hashFunction,word);
         Integer.parseInt(new String(indexInBin),2);
         return index;
@@ -44,7 +43,7 @@ public class HashTable <T> {
         byte[] c = new byte[this.size];
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < 32; j++) {
-                c[i] += (a[i][j]*b[j])%2;
+                c[i] += (byte) ((a[i][j]*b[j])%2);
             }
             c[i] %= 2;
         }

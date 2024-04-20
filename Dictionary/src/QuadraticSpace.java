@@ -47,13 +47,12 @@ public class QuadraticSpace<T> extends HashTable<T>{
 
     public void batchDelete(T[] items){
         int deletedWordsCounter=0;
-        for (int i=0;i<items.length;i++){
-            boolean deleted=this.delete(items[i]);
-            if (deleted){
+        for (T item : items) {
+            boolean deleted = this.delete(item);
+            if (deleted) {
                 deletedWordsCounter++;
-            }
-            else{
-                System.out.println("The Word '"+items[i]+"' Does Not Exist.");
+            } else {
+                System.out.println("The Word '" + item + "' Does Not Exist.");
             }
         }
         System.out.println("Number of Deleted Words = "+deletedWordsCounter+" From "+items.length+" Words Received.");
@@ -102,8 +101,8 @@ public class QuadraticSpace<T> extends HashTable<T>{
                 }
             }
             if (!collisionsExist){
-                for (int i = 0; i < messages.size(); i++){
-                    System.out.println(messages.get(i));
+                for (String message : messages) {
+                    System.out.println(message);
                 }
                 System.out.println("As Rehashing was Necessary, it Took"+counterOfRehashing+" times to Rebuild the Hash Table.");
                 if(numberOfInsertedElements>1) System.out.println("Number of Inserted Elements = "+numberOfInsertedElements+" From "+insertedElements.length+" Received Words.");

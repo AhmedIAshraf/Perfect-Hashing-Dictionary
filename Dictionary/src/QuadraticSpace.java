@@ -1,7 +1,5 @@
 public class QuadraticSpace<T> extends HashTable{
 
-    public QuadraticSpace(){}
-
     public boolean insert(T value){
         int index=getHashIndex(value);
         if (this.primaryTable[index]==null){

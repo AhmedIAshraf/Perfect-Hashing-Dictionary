@@ -1,15 +1,13 @@
 package org.dictionary;
 
 public class Dictionary <T> {
-    private final int method; // if 1 --> linear, 2 --> quadratic
     private HashTable<String> hashTable;
 
     public Dictionary(int method) {
-        this.method = method;
-        if (this.method == 1)
+        if (method == 1)
             hashTable = new LinearSpace<>();
         else
-            hashTable = new QuadraticSpace<String>();
+            hashTable = new QuadraticSpace<>();
     }
     /**
      * Inserts a word into the dictionary.

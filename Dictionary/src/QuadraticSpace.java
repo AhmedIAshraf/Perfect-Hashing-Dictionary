@@ -107,6 +107,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
                 }
                 System.out.println("As Rehashing was Necessary, it Took"+counterOfRehashing+" times to Rebuild the Hash Table.");
                 if(numberOfInsertedElements>1) System.out.println("Number of Inserted Elements = "+numberOfInsertedElements+" From "+insertedElements.length+" Received Words.");
+                this.primaryTable = temp;
             }
         }
     }

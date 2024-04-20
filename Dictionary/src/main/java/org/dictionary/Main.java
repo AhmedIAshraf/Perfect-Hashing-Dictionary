@@ -27,7 +27,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         boolean hasDictionary = false;
-        Dictionary<Integer> dictionary = null;
+        Dictionary<String> dictionary = null;
         while(true){
             if (!hasDictionary){
                 System.out.println("Please Enter the Method of Perfect Hashing: ");

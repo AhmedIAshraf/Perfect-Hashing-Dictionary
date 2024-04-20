@@ -34,7 +34,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
 
     public boolean delete(T value){
         int index=getHashIndex(value);
-        if (this.primaryTable[index]==null){
+        if (this.primaryTable[index]==null||!this.primaryTable[index].equals(value)){
             return false; //The element isn't in the table
         }else{
             this.allocated--;

@@ -1,5 +1,9 @@
 public class Dictionary {
+    private final int method; // if 1 --> linear, 2 --> quadratic
 
+    public Dictionary(int method) {
+        this.method = method;
+    }
     /**
      * Inserts a word into the dictionary.
      *

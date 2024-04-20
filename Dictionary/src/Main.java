@@ -8,12 +8,13 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final List<String> msgList = new ArrayList<>(List.of(" inserted successfully", " already exists",
             " doesn't exist", " found", " deleted successfully"));
-
     private static String[] readFile() throws FileNotFoundException {
         File file;
         do {
-            System.out.println("Enter the File Path");
-            String path = scanner.nextLine();
+            String path;
+            System.out.print("Enter the File Path: ");
+            scanner.nextLine();
+            path = scanner.nextLine();
             file = new File(path);
             if (!file.exists())
                 System.err.println("File not found!");
@@ -23,9 +24,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-
         boolean hasDictionary = false;
-        Dictionary dictionary = new Dictionary();
+        Dictionary dictionary = null;
         while(true){
             if (!hasDictionary){
                 System.out.println("Please Enter the Method of Perfect Hashing: ");
@@ -39,15 +39,16 @@ public class Main {
                 }
                 // Construct the dictionary based on the hashing method
                 hasDictionary = true;
+                dictionary = new Dictionary(typeOfHash);
             }
             else{
                 System.out.println("Operations to be Applied : ");
                 System.out.println("[1] Insert a String");
                 System.out.println("[2] Delete a String");
                 System.out.println("[3] Search for a String");
-                System.out.println("[4] Insert a list of Strings (Batch Insert)");
-                System.out.println("[5] Delete a list of Strings (Batch Delete)");
-                System.out.println("[7] Exit");
+                System.out.println("[4] Insert a list.txt of Strings (Batch Insert)");
+                System.out.println("[5] Delete a list.txt of Strings (Batch Delete)");
+                System.out.println("[6] Exit");
                 int operation = scanner.nextInt();
                 while (operation <= 0 || operation > 6){
                     System.err.println("You Must Enter a Number between 1 and 6.");
@@ -78,17 +79,11 @@ public class Main {
                         break;
                     case 4:
                         words = readFile();
-                        for (String word : words) {
-                            System.out.println(word);
-                        }
                         // Insert
                         dictionary.batchInsert(words);
                         break;
                     case 5:
                         words = readFile();
-                        for (String word : words) {
-                            System.out.println(word);
-                        }
                         // Delete
                         dictionary.batchDelete(words);
                         break;
@@ -97,7 +92,7 @@ public class Main {
                 }
             }
         }
-        
+
 
     }
 }

@@ -1,8 +1,14 @@
-public class Dictionary {
+public class Dictionary <T> {
     private final int method; // if 1 --> linear, 2 --> quadratic
+    private HashTable<T> hashTable;
 
     public Dictionary(int method) {
         this.method = method;
+        if (method == 1)
+            hashTable = new LinearSpace<>();
+        else
+            hashTable = new QuadraticSpace<>();
+
     }
     /**
      * Inserts a word into the dictionary.

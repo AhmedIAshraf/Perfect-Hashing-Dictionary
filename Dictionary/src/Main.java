@@ -25,7 +25,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         boolean hasDictionary = false;
-        Dictionary dictionary = null;
+        Dictionary<String> dictionary = null;
         while(true){
             if (!hasDictionary){
                 System.out.println("Please Enter the Method of Perfect Hashing: ");
@@ -39,7 +39,7 @@ public class Main {
                 }
                 // Construct the dictionary based on the hashing method
                 hasDictionary = true;
-                dictionary = new Dictionary(typeOfHash);
+                dictionary = new Dictionary<>(typeOfHash);
             }
             else{
                 System.out.println("Operations to be Applied : ");

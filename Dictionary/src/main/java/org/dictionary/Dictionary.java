@@ -2,14 +2,14 @@ package org.dictionary;
 
 public class Dictionary <T> {
     private final int method; // if 1 --> linear, 2 --> quadratic
-    private HashTable<Integer> hashTable;
+    private HashTable<String> hashTable;
 
     public Dictionary(int method) {
         this.method = method;
         if (this.method == 1)
             hashTable = new LinearSpace<>();
         else
-            hashTable = new QuadraticSpace<>();
+            hashTable = new QuadraticSpace<String>();
     }
     /**
      * Inserts a word into the dictionary.
@@ -18,7 +18,7 @@ public class Dictionary <T> {
      * @return {@code true} if the word was successfully inserted, {@code false} if it already exists.
      */
     public boolean insert(String word) {
-        boolean test=hashTable.insert(word.hashCode());
+        boolean test=hashTable.insert(word);
         return test;
     }
 
@@ -30,7 +30,7 @@ public class Dictionary <T> {
      * exist in the dictionary.
      */
     public boolean delete(String word) {
-        boolean test=hashTable.delete(word.hashCode());
+        boolean test=hashTable.delete(word);
         return test;
     }
 
@@ -42,7 +42,7 @@ public class Dictionary <T> {
      * exist in the dictionary.
      */
     public boolean search(String word) {
-        boolean test=hashTable.search(word.hashCode());
+        boolean test=hashTable.search(word);
         return test;
     }
 
@@ -52,9 +52,9 @@ public class Dictionary <T> {
      * @param words The array of words to be inserted.
      */
     public void batchInsert(String[] words) {
-        Integer [] word_hashcode=new Integer[words.length];
-        for(int i =0;i<words.length;i++) word_hashcode[i]=words[i].hashCode();
-        hashTable.batchInsert(word_hashcode);
+//        Integer [] word_hashcode=new Integer[words.length];
+//        for(int i =0;i<words.length;i++) word_hashcode[i]=words[i].hashCode();
+        hashTable.batchInsert(words);
     }
 
     /**
@@ -63,9 +63,8 @@ public class Dictionary <T> {
      * @param words The array of words to be deleted.
      */
     public void batchDelete(String[] words) {
-        Integer [] word_hashcode=new Integer[words.length];
-        for(int i =0;i<words.length;i++) word_hashcode[i]=words[i].hashCode();
-        hashTable.batchDelete(word_hashcode);
+//        Integer [] word_hashcode=new Integer[words.length];
+//        for(int i =0;i<words.length;i++) word_hashcode[i]=words[i].hashCode();
+        hashTable.batchDelete(words);
     }
 }
-

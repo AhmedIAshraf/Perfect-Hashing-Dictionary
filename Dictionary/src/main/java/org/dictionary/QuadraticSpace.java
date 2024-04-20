@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 public class QuadraticSpace<T> extends HashTable<T>{
 
+    public QuadraticSpace() {
+        this.primaryTable = (T[]) new Object[this.size*this.size];
+        for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
+        generateHashFunction();
+        this.allocated = 0;
+    }
+
     public boolean insert(T value){
         int index=getHashIndex(value);
         if (this.primaryTable[index]==null){
@@ -38,13 +45,15 @@ public class QuadraticSpace<T> extends HashTable<T>{
 
     public boolean search(T value){
         int index=getHashIndex(value);
-        return (this.primaryTable[index].equals(value));
+        if (this.primaryTable[index]==null) return false;
+        else return (this.primaryTable[index].equals(value));
     }
 
     public void batchInsert(T[] items){
-        int newLength=items.length+this.size;
+        int newLength;
+        if (this.primaryTable.length==0) newLength=items.length;
+        else newLength = items.length+this.size;
         reHashing(items.length+this.size,items);
-
     }
 
     public void batchDelete(T[] items){
@@ -60,7 +69,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
         System.out.println("Number of Deleted Words = "+deletedWordsCounter+" From "+items.length+" Words Received.");
     }
 
-    protected void reHashing(int length,T[] insertedElements){
+    private void reHashing(int length,T[] insertedElements){
         boolean collisionsExist = true;
         int numberOfInsertedElements=0;
         ArrayList<String> messages = new ArrayList<String>();

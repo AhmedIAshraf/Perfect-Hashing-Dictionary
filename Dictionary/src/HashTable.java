@@ -3,7 +3,6 @@ import java.util.Random;
 public class HashTable <T> {
 
     protected T[] primaryTable;
-    protected
     protected int size=10;
     protected byte[][] hashFunction;
     protected int allocated=0;

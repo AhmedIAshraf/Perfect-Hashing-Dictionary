@@ -84,16 +84,17 @@ public class QuadraticSpace<T> extends HashTable<T>{
             collisionsExist = false;
             generateHashFunction();
             for (int i = 0; i < this.size; i++){
-                int index=getHashIndex(this.primaryTable[i]);
-                if (temp[index]==null){
-                    temp[index]=this.primaryTable[i];
-                    allocated++;
-                    numberOfInsertedElements++;
-                }else if (temp[index].equals(this.primaryTable[i])) {
-                    messages.add("The Word '" + temp[i] + "' Already Exists.");
-                }else{
-                    collisionsExist=true;
-                    break;
+                if(primaryTable[i]!=null){
+                    int index=getHashIndex(this.primaryTable[i]);
+                    if (temp[index]==null){
+                        temp[index]=this.primaryTable[i];
+                        allocated++;
+                    }else if (temp[index].equals(this.primaryTable[i])) {
+                        messages.add("The Word '" + temp[i] + "' Already Exists.");
+                    }else{
+                        collisionsExist=true;
+                        break;
+                    }
                 }
             }
             if (!collisionsExist){
@@ -115,7 +116,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
                 for (String message : messages) {
                     System.out.println(message);
                 }
-                System.out.println("As Rehashing was Necessary, it Took"+counterOfRehashing+" times to Rebuild the Hash Table.");
+                System.out.println("As Rehashing was Necessary, it Took "+counterOfRehashing+" iteration(s) to Rebuild the Hash Table.");
                 if(numberOfInsertedElements>1) System.out.println("Number of Inserted Elements = "+numberOfInsertedElements+" From "+insertedElements.length+" Received Words.");
                 this.primaryTable = temp;
             }

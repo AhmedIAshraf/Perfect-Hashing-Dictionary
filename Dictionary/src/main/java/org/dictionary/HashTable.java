@@ -23,10 +23,12 @@ public abstract class HashTable <T>{
     }
 
     protected int getHashIndex(T value){
+        System.out.println("Word to be rehashed is : "+value);
         String bin = Integer.toBinaryString(value.hashCode());
         byte word[] = new byte[32];
         for (int i = 0; i < bin.length(); i++) { word[i] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
         int index = matrixMultiplication(this.hashFunction,word);
+        System.out.println("Index = "+index);
         return index;
     }
 

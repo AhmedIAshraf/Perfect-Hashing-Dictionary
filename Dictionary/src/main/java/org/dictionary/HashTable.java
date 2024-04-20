@@ -14,7 +14,8 @@ public abstract class HashTable <T>{
     protected HashTable () {}
 
     protected void generateHashFunction(){
-        this.hashFunction = new byte[(int)Math.log(this.size)][32];
+        double numberOfBits = (Math.log(this.size)/Math.log(2));
+        this.hashFunction = new byte[(int)numberOfBits][32];
         for (int i = 0; i < hashFunction.length ; i++) {
             for (int j = 0; j < 32; j++) {
                 hashFunction[i][j] = (byte) rand.nextInt(2);
@@ -23,12 +24,10 @@ public abstract class HashTable <T>{
     }
 
     protected int getHashIndex(T value){
-        System.out.println("Word to be rehashed is : "+value);
         String bin = Integer.toBinaryString(value.hashCode());
         byte word[] = new byte[32];
         for (int i = 0; i < bin.length(); i++) { word[i] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
         int index = matrixMultiplication(this.hashFunction,word);
-        System.out.println("Index = "+index);
         return index;
     }
 

@@ -8,7 +8,6 @@ public class HashTable <T> {
     protected int numberOfRehashing=0;
     private HashTable<T> tableConstructed;
 
-    public HashTable() {};
     public HashTable (int type) {
         this.primaryTable = (T[]) new Object[this.size*this.size];
         for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}

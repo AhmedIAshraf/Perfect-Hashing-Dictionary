@@ -15,7 +15,8 @@ public class WriteWordsToFile {
         int numberOfWords= scanner.nextInt();
         System.out.print("Enter 0 for distinct else for non: ");
         int is_distinct = scanner.nextByte();
-        String filePath = String.valueOf(numberOfWords).concat("words.txt");
+        String distinct = (is_distinct == 0 ? "distinct" : "non-distinct");
+        String filePath = distinct.concat(String.valueOf(numberOfWords).concat("words.txt"));
 
         try {
             FileWriter fileWriter = new FileWriter(filePath);
@@ -25,7 +26,7 @@ public class WriteWordsToFile {
 
             for (String word : wordList) {
                 bufferedWriter.write(word);
-                bufferedWriter.write(", ");
+                bufferedWriter.newLine();
             }
 
             bufferedWriter.close();

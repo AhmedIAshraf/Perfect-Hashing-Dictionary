@@ -21,8 +21,15 @@ public class Main {
             if (!file.exists())
                 System.out.println("File not found!");
         } while (!file.exists());
+        ArrayList<String> wordList = new ArrayList<>();
         Scanner fileScanner = new Scanner(file);
-        return fileScanner.nextLine().split(", ");
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            wordList.add(line);
+        }
+        fileScanner.close();
+
+        return wordList.toArray(new String[0]);
     }
 
     private static void lower(String[] words) {

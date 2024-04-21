@@ -1,7 +1,8 @@
 package org.dictionary;
 
-public class LinearSpace<T> extends HashTable<T>{
+import java.util.ArrayList;
 
+public class LinearSpace<T> extends HashTable<T>{
     @Override
     boolean insert(T value) {
         //System.out.println("hello");

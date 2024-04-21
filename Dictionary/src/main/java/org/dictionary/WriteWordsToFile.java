@@ -52,10 +52,10 @@ public class WriteWordsToFile {
 
     private static String generateRandomWord() {
         StringBuilder word = new StringBuilder();
-        int wordLength = (int) (Math.random() * 10) + 1; // Generate random word length between 1 and 10 characters
+        int wordLength = (int) (Math.random() * 10) + 1;
 
         for (int i = 0; i < wordLength; i++) {
-            char randomChar = (char) ('a' + (int) (Math.random() * 26)); // Generate random lowercase letter
+            char randomChar = (char) ('a' + (int) (Math.random() * 26));
             word.append(randomChar);
         }
 

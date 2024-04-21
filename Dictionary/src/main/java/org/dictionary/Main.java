@@ -25,6 +25,22 @@ public class Main {
         return fileScanner.nextLine().split(", ");
     }
 
+    private static void lower(String[] words) {
+        for (int i = 0; i < words.length; ++i) {
+            if (!isNumeric(words[i]))
+                words[i] = words[i].toLowerCase();
+        }
+    }
+
+    private static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e) {
+            return false;
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         boolean hasDictionary = false;
         Dictionary<String> dictionary = null;
@@ -70,22 +86,28 @@ public class Main {
                     case 2:
                         System.out.println("Enter String");
                         pathOrElement = scanner.next();
+                        if (!isNumeric(pathOrElement))
+                            pathOrElement = pathOrElement.toLowerCase();
                         result = dictionary.delete(pathOrElement);
                         System.out.println(pathOrElement + (result ? msgList.get(4) : msgList.get(2)));
                         break;
                     case 3:
                         System.out.println("Enter String");
                         pathOrElement = scanner.next();
+                        if (!isNumeric(pathOrElement))
+                            pathOrElement = pathOrElement.toLowerCase();
                         result = dictionary.search(pathOrElement);
                         System.out.println(pathOrElement + (result ? msgList.get(3) : msgList.get(2)));
                         break;
                     case 4:
                         words = readFile();
+                        lower(words);
                         // Insert
                         dictionary.batchInsert(words);
                         break;
                     case 5:
                         words = readFile();
+                        lower(words);
                         // Delete
                         dictionary.batchDelete(words);
                         break;
@@ -95,7 +117,5 @@ public class Main {
             }
             System.out.println("************************************************");
         }
-
-
     }
 }

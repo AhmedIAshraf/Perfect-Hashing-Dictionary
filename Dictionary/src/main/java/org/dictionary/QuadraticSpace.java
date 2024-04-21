@@ -12,8 +12,8 @@ public class QuadraticSpace<T> extends HashTable<T>{
     public QuadraticSpace(boolean linear) {
         if (linear) this.size=1;
         this.primaryTable = (T[]) new Object[this.size];
-        for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
-        generateHashFunction();
+        for (int i = 0; i < this.size ; i++) {this.primaryTable[i] = null;}
+        generateHashFunction(false);
         this.allocated = 0;
     }
 
@@ -98,7 +98,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
 //System.out.println("Rehashing Number "+counterOfRehashing);
             messages.clear();
             collisionsExist = false;
-            generateHashFunction();
+            generateHashFunction(false);
             for (int i = 0; i < primaryTable.length; i++){
                 if(primaryTable[i]!=null){
                     int index=getHashIndex(this.primaryTable[i]);

@@ -27,7 +27,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
         add[0] = value;
         if ((double)this.allocated/(double)primaryTable.length >= 0.8){
             System.out.println("Rehashing is Necessary as the Load Factor (n/m) Exceeded 0.8");
-            reHashing((int)this.size*2,add);
+            reHashing((int)this.size+1,add);
         }else if (this.primaryTable[index]==null){
             this.primaryTable[index]=value;
         }else if(this.primaryTable[index].equals(value)) {

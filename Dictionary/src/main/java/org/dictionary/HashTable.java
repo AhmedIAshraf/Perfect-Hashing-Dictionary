@@ -14,7 +14,8 @@ public abstract class HashTable <T>{
     protected HashTable () {}
 
     protected void generateHashFunction(){
-        double numberOfBits = (Math.log(this.size)/Math.log(2));
+        double numberOfBits = (Math.log(this.size*this.size)/Math.log(2));
+//System.out.println("Number of bits: " + numberOfBits);
         this.hashFunction = new byte[(int)numberOfBits][32];
         for (int i = 0; i < hashFunction.length ; i++) {
             for (int j = 0; j < 32; j++) {
@@ -25,8 +26,11 @@ public abstract class HashTable <T>{
 
     protected int getHashIndex(T value){
         String bin = Integer.toBinaryString(value.hashCode());
+//if(value.equals("c")||value.equals("cc"))System.out.println("Word is "+value+" ,,, hash code = "+bin);
         byte word[] = new byte[32];
-        for (int i = 0; i < bin.length(); i++) { word[i] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
+        int j=0;
+        for (int i = bin.length()-1; i >=0 ; i--) { word[j++] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
+//if(value.equals("c")||value.equals("cc")) for(byte i : word) System.out.print(i);
         int index = matrixMultiplication(this.hashFunction,word);
         return index;
     }
@@ -39,7 +43,7 @@ public abstract class HashTable <T>{
                 c[i] += (byte) ((a[i][j]*b[j])%2);
             }
             c[i] %= 2;
-            indexInDecimal += c[i]*(Math.pow(2,i));
+            indexInDecimal += c[i]*(Math.pow(2,c.length-1-i));
         }
         return indexInDecimal;
     }

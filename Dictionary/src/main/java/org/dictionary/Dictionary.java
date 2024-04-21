@@ -7,7 +7,7 @@ public class Dictionary <T> {
         if (method == 1)
             hashTable = new LinearSpace<>();
         else
-            hashTable = new QuadraticSpace<>();
+            hashTable = new QuadraticSpace<>(false);
     }
     /**
      * Inserts a word into the dictionary.

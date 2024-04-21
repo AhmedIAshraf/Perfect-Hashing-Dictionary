@@ -3,7 +3,14 @@ import java.util.ArrayList;
 
 public class QuadraticSpace<T> extends HashTable<T>{
 
-    public QuadraticSpace() {
+//    public QuadraticSpace() {
+//        this.primaryTable = (T[]) new Object[this.size*this.size];
+//        for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
+//        generateHashFunction();
+//        this.allocated = 0;
+//    }
+    public QuadraticSpace(boolean linear) {
+        if (linear) this.size=1;
         this.primaryTable = (T[]) new Object[this.size*this.size];
         for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
         generateHashFunction();
@@ -18,14 +25,14 @@ public class QuadraticSpace<T> extends HashTable<T>{
         this.allocated++;
         T[] add = (T[]) new Object[1];
         add[0] = value;
-        if ((double)this.allocated/(double)this.size >= 0.8){
+        if ((double)this.allocated/(double)primaryTable.length >= 0.8){
             System.out.println("Rehashing is Necessary as the Load Factor (n/m) Exceeded 0.8");
-            reHashing((int)Math.sqrt(this.size)*2,add);
+            reHashing((int)this.size*2,add);
         }else if (this.primaryTable[index]==null){
             this.primaryTable[index]=value;
         }else if(this.primaryTable[index].equals(value)) {
             System.out.println("Rehashing is Necessary as There is a Collision While Inserting '" + value + "'.");
-            reHashing((int) Math.ceil(Math.sqrt(this.size)), add);
+            reHashing((int) Math.ceil(this.size), add);
         }
         return true;
     }
@@ -57,7 +64,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
             System.out.println("No New Words Can be Added, No Need for Rehashing.");
             return;
         }
-        if (this.allocated!=0) newLength+=(int)Math.sqrt(this.size);
+        if (this.allocated!=0) newLength+=(int)this.size;
         reHashing(newLength,items);
     }
 
@@ -75,21 +82,20 @@ public class QuadraticSpace<T> extends HashTable<T>{
     }
 
     private void reHashing(int length,T[] insertedElements){
-System.out.println("Length = "+length+" Inserted Elements = "+insertedElements.length);
+        System.out.println("Length = "+length+" Table Length = "+length*length);
+        this.size = length;
         boolean collisionsExist = true;
         int numberOfInsertedElements=0;
-        ArrayList<String> messages = new ArrayList<String>();
         counterOfRehashing = 0;
+        ArrayList<String> messages = new ArrayList<String>();
         T[] temp;
-        this.size = length*length;
-System.out.println("Table Length = "+this.size);
-//System.exit(0);
         while (collisionsExist){
-            temp = (T[]) new Object[this.size];
+            temp = (T[]) new Object[length*length];
             for (int i = 0; i < temp.length; i++){temp[i] = null;}
             allocated = 0;
             numberOfInsertedElements=0;
             counterOfRehashing++;
+//System.out.println("Rehashing Number "+counterOfRehashing);
             messages.clear();
             collisionsExist = false;
             generateHashFunction();
@@ -133,5 +139,7 @@ System.out.println("Table Length = "+this.size);
             }
         }
     }
+
+
 
 }

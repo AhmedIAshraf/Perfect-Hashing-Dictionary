@@ -19,7 +19,7 @@ public class Main {
             path = scanner.nextLine();
             file = new File(path);
             if (!file.exists())
-                System.err.println("File not found!");
+                System.out.println("File not found!");
         } while (!file.exists());
         Scanner fileScanner = new Scanner(file);
         return fileScanner.nextLine().split(", ");

@@ -1,5 +1,4 @@
 package org.dictionary;
-
 import java.util.ArrayList;
 
 public class QuadraticSpace<T> extends HashTable<T>{
@@ -12,24 +11,23 @@ public class QuadraticSpace<T> extends HashTable<T>{
     }
 
     public boolean insert(T value){
+
         int index=getHashIndex(value);
-        if (this.primaryTable[index]==null){
+        if (this.primaryTable[index]!=null&&this.primaryTable[index].equals(value)) return false; //the element already exists
+
+        this.allocated++;
+        T[] add = (T[]) new Object[1];
+        add[0] = value;
+        if ((double)this.allocated/(double)this.size >= 0.8){
+            System.out.println("Rehashing is Necessary as the Load Factor (n/m) Exceeded 0.8");
+            reHashing((int)Math.sqrt(this.size)*2,add);
+        }else if (this.primaryTable[index]==null){
             this.primaryTable[index]=value;
-            this.allocated++;
-//            if ((double)this.allocated/(double)this.size >= 0.8){
-//                System.out.println("Rehashing is Necessary as the Load Factor (n/m) Exceeded 0.8");
-//                reHashing(this.size*2);
-//            }
-            return true;
-        }else if (this.primaryTable[index].equals(value)){
-            return false; //the element already exists
-        }else{
-            System.out.println("Rehashing is Necessary as There is a Collision While Inserting '"+value+"'.");
-            T[] add = (T[]) new Object[1];
-            add[0]=value;
-            reHashing(this.size,add);
-            return true;
+        }else if(this.primaryTable[index].equals(value)) {
+            System.out.println("Rehashing is Necessary as There is a Collision While Inserting '" + value + "'.");
+            reHashing((int) Math.ceil(Math.sqrt(this.size)), add);
         }
+        return true;
     }
 
     public boolean delete(T value){
@@ -50,9 +48,16 @@ public class QuadraticSpace<T> extends HashTable<T>{
     }
 
     public void batchInsert(T[] items){
-        int newLength;
-        if (this.allocated==0) newLength=items.length;
-        else newLength = items.length+this.size;
+        int additionalLength=0;
+        for (int i=0;i<items.length;i++){
+            if (!search(items[i])) additionalLength++;
+        }
+        int newLength=additionalLength;
+        if (newLength==0){
+            System.out.println("No New Words Can be Added, No Need for Rehashing.");
+            return;
+        }
+        if (this.allocated!=0) newLength+=(int)Math.sqrt(this.size);
         reHashing(newLength,items);
     }
 

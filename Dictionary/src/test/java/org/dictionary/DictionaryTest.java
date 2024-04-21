@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DictionaryTest {
     Dictionary<String> dictionary = new Dictionary<>(2);
-    String[] files = {"list.txt"};
+    String[] files = {"list.txt",
+                        };
     String path = "C:\\Users\\WORK UEFI\\OneDrive - Alexandria University\\Desktop\\Perfect-Hashing-Dictionary\\Dictionary\\src\\test\\resources\\";
 
     @Test

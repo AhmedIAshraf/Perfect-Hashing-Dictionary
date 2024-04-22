@@ -72,9 +72,6 @@ public class LinearSpace<T> extends HashTable<T>{
             if(item == null) continue;
             temp[k++] = item;
         }
-        for (int i = 0; i < k; ++i) {
-            System.out.println(temp[i]);
-        }
         reHashing(newLength ,temp);
     }
 
@@ -97,11 +94,24 @@ public class LinearSpace<T> extends HashTable<T>{
         for(int i = 0; i < this.size; ++i) this.primary_table.add(new QuadraticSpace<>(true));
         this.allocated = 0;
         generateHashFunction(true);
-        int count = 0;
         for (T item : insertedElements) {
             if(item == null) continue;
-            System.out.println(count++);
             insert(item);
+        }
+        test();
+    }
+
+    void test(){
+        for(int i = 0; i < this.size; ++i) {
+            System.out.println("***********"+" table "+i+ " ***********");
+            for (int j = 0; j < this.primary_table.get(i).primaryTable.length; ++j) {
+                if (this.primary_table.get(i).primaryTable[j] == null) {
+                    System.out.println("=>index "+ j + " : _");
+                }
+                else{
+                    System.out.println("=>index "+ j + " : " + this.primary_table.get(i).primaryTable[j]);
+                }
+            }
         }
     }
 

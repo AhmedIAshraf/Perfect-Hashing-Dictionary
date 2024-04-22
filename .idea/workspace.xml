@@ -4,28 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f66ba7d2-55dd-426c-8574-97e15497c21c" name="Changes" comment="Test Files">
-      <change afterPath="$PROJECT_DIR$/Dictionary/src/test/resources/distinct15000words.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dictionary/src/test/resources/distinct20000words.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dictionary/src/test/resources/distinct25000words.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dictionary/src/test/resources/distinct30000words.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dictionary/src/test/resources/distinct35000words.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dictionary/src/main/java/org/dictionary/QuadraticSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dictionary/src/main/java/org/dictionary/QuadraticSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dictionary/src/main/java/org/dictionary/WriteWordsToFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dictionary/src/main/java/org/dictionary/WriteWordsToFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dictionary/src/test/java/org/dictionary/DictionaryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dictionary/src/test/java/org/dictionary/DictionaryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dictionary/src/test/resources/non-distinct100words.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Dictionary/src/test/resources/non-distinct100words.txt" afterDir="false" />
+    <list default="true" id="558cae58-20b4-4b28-80a0-70cd5ff331c9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dictionary/src/main/java/org/dictionary/LinearSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/Dictionary/src/main/java/org/dictionary/LinearSpace.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,231 +19,61 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Saifullah-1&quot;
+    &quot;assignee&quot;: &quot;AhmedOsamaMohamed03&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AhmedIAshraf/Perfect-Hashing-Dictionary.git&quot;,
-    &quot;accountId&quot;: &quot;a0eeb087-dd07-4293-86c6-c8d1af4166af&quot;
+    &quot;accountId&quot;: &quot;8b1e2482-56c6-46ae-9219-b4c9a219209c&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 1
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2fMsHFR35iwbhfPtxOKvnTNeHvD" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2fQSgoPJV1tnUxdrKcSR7fKSdbN" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.WriteWordsToFile.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DictionaryTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DictionaryTest.testBatchDelete.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DictionaryTest.testBatchInsert.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DictionaryTest.testDeletion.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DictionaryTest.testInsertion.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DictionaryTest.testSearch.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/PC/Documents/GitHub/Perfect-Hashing-Dictionary",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\WORK UEFI\OneDrive - Alexandria University\Desktop\Perfect-Hashing-Dictionary\Dictionary\src\test\resources" />
-      <recent name="C:\Users\WORK UEFI\OneDrive - Alexandria University\Desktop\Perfect-Hashing-Dictionary\Dictionary\src\main\resources" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.DictionaryTest.testInsertion">
-    <configuration name="WriteWordsToFile" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.dictionary.WriteWordsToFile" />
-      <module name="Dictionary" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.dictionary.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DictionaryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Dictionary" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.dictionary.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.dictionary" />
-      <option name="MAIN_CLASS_NAME" value="org.dictionary.DictionaryTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DictionaryTest.testBatchDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Dictionary" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.dictionary.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.dictionary" />
-      <option name="MAIN_CLASS_NAME" value="org.dictionary.DictionaryTest" />
-      <option name="METHOD_NAME" value="testBatchDelete" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DictionaryTest.testBatchInsert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Dictionary" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.dictionary.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.dictionary" />
-      <option name="MAIN_CLASS_NAME" value="org.dictionary.DictionaryTest" />
-      <option name="METHOD_NAME" value="testBatchInsert" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DictionaryTest.testInsertion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Dictionary" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.dictionary.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.dictionary" />
-      <option name="MAIN_CLASS_NAME" value="org.dictionary.DictionaryTest" />
-      <option name="METHOD_NAME" value="testInsertion" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.DictionaryTest.testInsertion" />
-        <item itemvalue="JUnit.DictionaryTest.testBatchInsert" />
-        <item itemvalue="JUnit.DictionaryTest.testBatchDelete" />
-        <item itemvalue="Application.WriteWordsToFile" />
-        <item itemvalue="JUnit.DictionaryTest" />
-      </list>
-    </recent_temporary>
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f66ba7d2-55dd-426c-8574-97e15497c21c" name="Changes" comment="" />
-      <created>1713622193256</created>
+      <changelist id="558cae58-20b4-4b28-80a0-70cd5ff331c9" name="Changes" comment="" />
+      <created>1713731922913</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1713622193256</updated>
+      <updated>1713731922913</updated>
+      <workItem from="1713731924655" duration="3439000" />
+      <workItem from="1713735406802" duration="15983000" />
     </task>
-    <task id="LOCAL-00001" summary="Convert project to maven">
-      <option name="closed" value="true" />
-      <created>1713622272509</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1713622272510</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Delete">
-      <option name="closed" value="true" />
-      <created>1713644820303</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1713644820303</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Test">
-      <option name="closed" value="true" />
-      <created>1713645332819</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1713645332819</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Test">
-      <option name="closed" value="true" />
-      <created>1713658816452</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1713658816452</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Case sensitivity">
-      <option name="closed" value="true" />
-      <created>1713659316235</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1713659316235</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Test Files">
-      <option name="closed" value="true" />
-      <created>1713666016510</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1713666016510</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Test Files">
-      <option name="closed" value="true" />
-      <created>1713667385355</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1713667385355</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Test Files">
-      <option name="closed" value="true" />
-      <created>1713712425950</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1713712425950</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Convert project to maven" />
-    <MESSAGE value="Delete" />
-    <MESSAGE value="Test" />
-    <MESSAGE value="Case sensitivity" />
-    <MESSAGE value="Test Files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test Files" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

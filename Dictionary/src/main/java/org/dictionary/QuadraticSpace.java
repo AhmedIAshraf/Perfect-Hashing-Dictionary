@@ -11,8 +11,8 @@ public class QuadraticSpace<T> extends HashTable<T>{
 //    }
     public QuadraticSpace(boolean linear) {
         if (linear) this.size=1;
-        this.primaryTable = (T[]) new Object[this.size];
-        for (int i = 0; i < this.size ; i++) {this.primaryTable[i] = null;}
+        this.primaryTable = (T[]) new Object[this.size * this.size];
+        for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
         generateHashFunction(false);
         this.allocated = 0;
     }

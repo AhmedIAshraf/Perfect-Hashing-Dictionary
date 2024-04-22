@@ -17,7 +17,7 @@ public abstract class HashTable <T>{
         double numberOfBits;
         if (linear) {
             if (this.size==1) numberOfBits=1;
-            else numberOfBits = (Math.log(this.size)/Math.log(2));
+            else numberOfBits = (Math.log(primaryTable.length)/Math.log(2));
         }
         else numberOfBits = (Math.log(primaryTable.length)/Math.log(2));
 //System.out.println("Number of bits: " + numberOfBits);

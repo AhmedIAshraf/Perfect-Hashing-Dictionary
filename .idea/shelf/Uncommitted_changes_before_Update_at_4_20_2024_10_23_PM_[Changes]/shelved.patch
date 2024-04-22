@@ -1,0 +1,68 @@
+Index: Dictionary/src/main/java/org/dictionary/Dictionary.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.dictionary;\r\n\r\npublic class Dictionary <T> {\r\n    private final int method; // if 1 --> linear, 2 --> quadratic\r\n    private HashTable<Integer> hashTable;\r\n\r\n    public Dictionary(int method) {\r\n        this.method = method;\r\n        if (this.method == 1)\r\n            hashTable = new LinearSpace<>();\r\n        else\r\n            hashTable = new QuadraticSpace<>();\r\n    }\r\n    /**\r\n     * Inserts a word into the dictionary.\r\n     *\r\n     * @param word The word to be inserted.\r\n     * @return {@code true} if the word was successfully inserted, {@code false} if it already exists.\r\n     */\r\n    public boolean insert(String word) {\r\n        boolean test=hashTable.insert(word.hashCode());\r\n        return test;\r\n    }\r\n\r\n    /**\r\n     * Deletes a word from the dictionary.\r\n     *\r\n     * @param word The word to be deleted.\r\n     * @return {@code true} if the word was successfully deleted, {@code false} if it doesn't\r\n     * exist in the dictionary.\r\n     */\r\n    public boolean delete(String word) {\r\n        boolean test=hashTable.delete(word.hashCode());\r\n        return test;\r\n    }\r\n\r\n    /**\r\n     * Searches for a word in the dictionary.\r\n     *\r\n     * @param word The word to be searched.\r\n     * @return {@code true} if the word is found in the dictionary, {@code false} if it doesn't\r\n     * exist in the dictionary.\r\n     */\r\n    public boolean search(String word) {\r\n        boolean test=hashTable.search(word.hashCode());\r\n        return test;\r\n    }\r\n\r\n    /**\r\n     * Inserts an array of words read from file into the dictionary.\r\n     *\r\n     * @param words The array of words to be inserted.\r\n     */\r\n    public void batchInsert(String[] words) {\r\n        Integer [] word_hashcode=new Integer[words.length];\r\n        for(int i =0;i<words.length;i++) word_hashcode[i]=words[i].hashCode();\r\n        hashTable.batchInsert(word_hashcode);\r\n    }\r\n\r\n    /**\r\n     * Deletes an array of words read from file from the dictionary.\r\n     *\r\n     * @param words The array of words to be deleted.\r\n     */\r\n    public void batchDelete(String[] words) {\r\n        Integer [] word_hashcode=new Integer[words.length];\r\n        for(int i =0;i<words.length;i++) word_hashcode[i]=words[i].hashCode();\r\n        hashTable.batchDelete(word_hashcode);\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dictionary/src/main/java/org/dictionary/Dictionary.java b/Dictionary/src/main/java/org/dictionary/Dictionary.java
+--- a/Dictionary/src/main/java/org/dictionary/Dictionary.java	(revision b8d9320df87f4cf42643fbf3b36d603295635705)
++++ b/Dictionary/src/main/java/org/dictionary/Dictionary.java	(date 1713638691769)
+@@ -1,12 +1,10 @@
+ package org.dictionary;
+ 
+ public class Dictionary <T> {
+-    private final int method; // if 1 --> linear, 2 --> quadratic
+-    private HashTable<Integer> hashTable;
++    private final HashTable<Integer> hashTable;
+ 
+     public Dictionary(int method) {
+-        this.method = method;
+-        if (this.method == 1)
++        if (method == 1)
+             hashTable = new LinearSpace<>();
+         else
+             hashTable = new QuadraticSpace<>();
+Index: .idea/material_theme_project_new.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"MaterialThemeProjectNewConfig\">\r\n    <option name=\"metadata\">\r\n      <MTProjectMetadataState>\r\n        <option name=\"userId\" value=\"-4cf7480a:18efbd788a6:-7ffa\" />\r\n      </MTProjectMetadataState>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/material_theme_project_new.xml b/.idea/material_theme_project_new.xml
+--- a/.idea/material_theme_project_new.xml	(revision b8d9320df87f4cf42643fbf3b36d603295635705)
++++ b/.idea/material_theme_project_new.xml	(date 1713630394237)
+@@ -3,7 +3,10 @@
+   <component name="MaterialThemeProjectNewConfig">
+     <option name="metadata">
+       <MTProjectMetadataState>
+-        <option name="userId" value="-4cf7480a:18efbd788a6:-7ffa" />
++        <option name="migrated" value="true" />
++        <option name="pristineConfig" value="false" />
++        <option name="userId" value="5bd7c71a:18c30f86dd5:-8000" />
++        <option name="version" value="8.13.2" />
+       </MTProjectMetadataState>
+     </option>
+   </component>
+Index: Dictionary/src/test/java/org/dictionary/DictionaryTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dictionary/src/test/java/org/dictionary/DictionaryTest.java b/Dictionary/src/test/java/org/dictionary/DictionaryTest.java
+new file mode 100644
+--- /dev/null	(date 1713639258093)
++++ b/Dictionary/src/test/java/org/dictionary/DictionaryTest.java	(date 1713639258093)
+@@ -0,0 +1,8 @@
++package org.dictionary;
++
++import org.junit.jupiter.api.Test;
++
++public class DictionaryTest {
++    @Test
++    
++}
+diff --git a/Dictionary/src/main/java/org/dictionary/list.txt b/Dictionary/src/test/resources/list.txt
+rename from Dictionary/src/main/java/org/dictionary/list.txt
+rename to Dictionary/src/test/resources/list.txt

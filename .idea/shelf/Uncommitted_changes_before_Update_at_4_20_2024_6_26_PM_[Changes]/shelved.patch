@@ -1,0 +1,75 @@
+Index: Dictionary/src/main/java/org/dictionary/QuadraticSpace.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.dictionary;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class QuadraticSpace<T> extends HashTable<T>{\r\n\r\n    public boolean insert(T value){\r\n        int index=getHashIndex(value);\r\n        if (this.primaryTable[index]==null){\r\n            this.primaryTable[index]=value;\r\n            this.allocated++;\r\n//            if ((double)this.allocated/(double)this.size >= 0.8){\r\n//                System.out.println(\"Rehashing is Necessary as the Load Factor (n/m) Exceeded 0.8\");\r\n//                reHashing(this.size*2);\r\n//            }\r\n            return true;\r\n        }else if (this.primaryTable[index].equals(value)){\r\n            return false; //the element already exists\r\n        }else{\r\n            System.out.println(\"Rehashing is Necessary as There is a Collision While Inserting '\"+value+\"'.\");\r\n            T[] add = (T[]) new Object[1];\r\n            add[0]=value;\r\n            reHashing(this.size,add);\r\n            return true;\r\n        }\r\n    }\r\n\r\n    public boolean delete(T value){\r\n        int index=getHashIndex(value);\r\n        if (this.primaryTable[index]==null){\r\n            return false; //The element isn't in the table\r\n        }else{\r\n            this.allocated--;\r\n            this.primaryTable[index] = null;\r\n            return true;\r\n        }\r\n    }\r\n\r\n    public boolean search(T value){\r\n        int index=getHashIndex(value);\r\n        return (this.primaryTable[index].equals(value));\r\n    }\r\n\r\n    public void batchInsert(T[] items){\r\n        int newLength=items.length+this.size;\r\n        reHashing(items.length+this.size,items);\r\n\r\n    }\r\n\r\n    public void batchDelete(T[] items){\r\n        int deletedWordsCounter=0;\r\n        for (T item : items) {\r\n            boolean deleted = this.delete(item);\r\n            if (deleted) {\r\n                deletedWordsCounter++;\r\n            } else {\r\n                System.out.println(\"The Word '\" + item + \"' Does Not Exist.\");\r\n            }\r\n        }\r\n        System.out.println(\"Number of Deleted Words = \"+deletedWordsCounter+\" From \"+items.length+\" Words Received.\");\r\n    }\r\n\r\n    protected void reHashing(int length,T[] insertedElements){\r\n        boolean collisionsExist = true;\r\n        int numberOfInsertedElements=0;\r\n        ArrayList<String> messages = new ArrayList<String>();\r\n        counterOfRehashing = 0;\r\n        T[] temp;\r\n        while (collisionsExist){\r\n            temp = (T[]) new Object[length*length];\r\n            for (int i = 0; i < length*length; i++){temp[i] = null;}\r\n            allocated = 0;\r\n            counterOfRehashing++;\r\n            messages.clear();\r\n            collisionsExist = false;\r\n            generateHashFunction();\r\n            for (int i = 0; i < this.size; i++){\r\n                int index=getHashIndex(this.primaryTable[i]);\r\n                if (temp[index]==null){\r\n                    temp[index]=this.primaryTable[i];\r\n                    allocated++;\r\n                    numberOfInsertedElements++;\r\n                }else if (temp[index].equals(this.primaryTable[i])) {\r\n                    messages.add(\"The Word '\" + temp[i] + \"' Already Exists.\");\r\n                }else{\r\n                    collisionsExist=true;\r\n                    break;\r\n                }\r\n            }\r\n            if (!collisionsExist){\r\n                for (int i = 0; i < insertedElements.length; i++){\r\n                    int index=getHashIndex(insertedElements[i]);\r\n                    if (temp[index]==null){\r\n                        temp[index]=insertedElements[i];\r\n                        allocated++;\r\n                        numberOfInsertedElements++;\r\n                    }else if (temp[index].equals(insertedElements[i])) {\r\n                        messages.add(\"The Word '\" + temp[i] + \"' Already Exists.\");\r\n                    }else{\r\n                        collisionsExist=true;\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n            if (!collisionsExist){\r\n                for (String message : messages) {\r\n                    System.out.println(message);\r\n                }\r\n                System.out.println(\"As Rehashing was Necessary, it Took\"+counterOfRehashing+\" times to Rebuild the Hash Table.\");\r\n                if(numberOfInsertedElements>1) System.out.println(\"Number of Inserted Elements = \"+numberOfInsertedElements+\" From \"+insertedElements.length+\" Received Words.\");\r\n                this.primaryTable = temp;\r\n            }\r\n        }\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dictionary/src/main/java/org/dictionary/QuadraticSpace.java b/Dictionary/src/main/java/org/dictionary/QuadraticSpace.java
+--- a/Dictionary/src/main/java/org/dictionary/QuadraticSpace.java	(revision b428713b67b435ef9baad4e2ffc61419c1446acf)
++++ b/Dictionary/src/main/java/org/dictionary/QuadraticSpace.java	(date 1713625708860)
+@@ -3,7 +3,6 @@
+ import java.util.ArrayList;
+ 
+ public class QuadraticSpace<T> extends HashTable<T>{
+-
+     public boolean insert(T value){
+         int index=getHashIndex(value);
+         if (this.primaryTable[index]==null){
+Index: .idea/material_theme_project_new.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"MaterialThemeProjectNewConfig\">\r\n    <option name=\"metadata\">\r\n      <MTProjectMetadataState>\r\n        <option name=\"userId\" value=\"-4cf7480a:18efbd788a6:-7ffa\" />\r\n      </MTProjectMetadataState>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/material_theme_project_new.xml b/.idea/material_theme_project_new.xml
+--- a/.idea/material_theme_project_new.xml	(revision b428713b67b435ef9baad4e2ffc61419c1446acf)
++++ b/.idea/material_theme_project_new.xml	(date 1713625709562)
+@@ -3,7 +3,10 @@
+   <component name="MaterialThemeProjectNewConfig">
+     <option name="metadata">
+       <MTProjectMetadataState>
+-        <option name="userId" value="-4cf7480a:18efbd788a6:-7ffa" />
++        <option name="migrated" value="true" />
++        <option name="pristineConfig" value="false" />
++        <option name="userId" value="5bd7c71a:18c30f86dd5:-8000" />
++        <option name="version" value="8.13.2" />
+       </MTProjectMetadataState>
+     </option>
+   </component>
+Index: Dictionary/src/test/java/org/dictionary/DictionaryTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dictionary/src/test/java/org/dictionary/DictionaryTest.java b/Dictionary/src/test/java/org/dictionary/DictionaryTest.java
+new file mode 100644
+--- /dev/null	(date 1713622528581)
++++ b/Dictionary/src/test/java/org/dictionary/DictionaryTest.java	(date 1713622528581)
+@@ -0,0 +1,5 @@
++package org.dictionary;
++
++public class DictionaryTest {
++
++}
+Index: Dictionary/src/main/java/org/dictionary/LinearSpace.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.dictionary;\r\n\r\npublic class LinearSpace<T> extends HashTable<T>{\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Dictionary/src/main/java/org/dictionary/LinearSpace.java b/Dictionary/src/main/java/org/dictionary/LinearSpace.java
+--- a/Dictionary/src/main/java/org/dictionary/LinearSpace.java	(revision b428713b67b435ef9baad4e2ffc61419c1446acf)
++++ b/Dictionary/src/main/java/org/dictionary/LinearSpace.java	(date 1713623711624)
+@@ -1,4 +1,5 @@
+ package org.dictionary;
+ 
+-public class LinearSpace<T> extends HashTable<T>{
++public class LinearSpace<T> extends HashTable<T> {
++
+ }
+diff --git a/Dictionary/src/main/java/org/dictionary/list.txt b/Dictionary/src/test/resources/list.txt
+rename from Dictionary/src/main/java/org/dictionary/list.txt
+rename to Dictionary/src/test/resources/list.txt

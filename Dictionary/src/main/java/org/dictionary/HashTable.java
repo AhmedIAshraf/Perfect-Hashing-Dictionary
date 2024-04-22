@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class HashTable <T>{
 
     protected T[] primaryTable;
-    protected int size = 8;
+    protected int size = 2;
     protected byte[][] hashFunction;
     protected int allocated = 0;
     protected int counterOfRehashing = 0;
@@ -17,9 +17,9 @@ public abstract class HashTable <T>{
         double numberOfBits;
         if (linear) {
             if (this.size==1) numberOfBits=1;
-            else numberOfBits = (Math.log(primaryTable.length)/Math.log(2));
+            else numberOfBits = (Math.log(this.size)/Math.log(2));
         }
-        else numberOfBits = (Math.log(primaryTable.length)/Math.log(2));
+        else numberOfBits = (Math.log(this.size*this.size)/Math.log(2));
 //System.out.println("Number of bits: " + numberOfBits);
         this.hashFunction = new byte[(int)numberOfBits][32];
         for (int i = 0; i < hashFunction.length ; i++) {
@@ -54,7 +54,7 @@ public abstract class HashTable <T>{
     }
 
 
-    abstract boolean insert(T value);
+    abstract boolean insert(T value,boolean linear);
     abstract boolean delete(T value);
     abstract boolean search(T value);
     abstract void batchInsert(T[] items);

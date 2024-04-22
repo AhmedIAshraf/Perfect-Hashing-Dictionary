@@ -1,9 +1,11 @@
 package org.dictionary;
 
 public class Dictionary <T> {
+    private int methodOfHash;
     private HashTable<String> hashTable;
 
     public Dictionary(int method) {
+        methodOfHash = method;
         if (method == 1)
             hashTable = new LinearSpace<>();
         else
@@ -16,7 +18,8 @@ public class Dictionary <T> {
      * @return {@code true} if the word was successfully inserted, {@code false} if it already exists.
      */
     public boolean insert(String word) {
-        boolean test=hashTable.insert(word);
+        boolean linear = methodOfHash == 1 ? true : false;
+        boolean test=hashTable.insert(word,linear);
         return test;
     }
 

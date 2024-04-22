@@ -19,7 +19,7 @@ public abstract class HashTable <T>{
             if (this.size==1) numberOfBits=1;
             else numberOfBits = (Math.log(this.size)/Math.log(2));
         }
-        else numberOfBits = (Math.log(this.size*this.size)/Math.log(2));
+        else numberOfBits = (Math.log(primaryTable.length)/Math.log(2));
 //System.out.println("Number of bits: " + numberOfBits);
         this.hashFunction = new byte[(int)numberOfBits][32];
         for (int i = 0; i < hashFunction.length ; i++) {

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class QuadraticSpace<T> extends HashTable<T>{
 
-//    public QuadraticSpace() {
+    //    public QuadraticSpace() {
 //        this.primaryTable = (T[]) new Object[this.size*this.size];
 //        for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
 //        generateHashFunction();
@@ -11,8 +11,8 @@ public class QuadraticSpace<T> extends HashTable<T>{
 //    }
     public QuadraticSpace(boolean linear) {
         if (linear) this.size=1;
-        this.primaryTable = (T[]) new Object[this.size * this.size];
-        for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
+        this.primaryTable = (T[]) new Object[this.size];
+        for (int i = 0; i < this.size ; i++) {this.primaryTable[i] = null;}
         generateHashFunction(false);
         this.allocated = 0;
     }
@@ -32,7 +32,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
             this.primaryTable[index]=value;
         }else if(this.primaryTable[index].equals(value)) {
             System.out.println("Rehashing is Necessary as There is a Collision While Inserting '" + value + "'.");
-            reHashing((int) Math.ceil(this.size), add);
+            reHashing(this.size, add);
         }
         return true;
     }

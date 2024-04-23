@@ -8,6 +8,7 @@ public class LinearSpace<T> extends HashTable<T>{
     private int collisions = 0;
 
     public LinearSpace() {
+        this.size = 10;
         this.primary_table = new ArrayList<QuadraticSpace<T>>(this.size);
         for(int i = 0; i < this.size; ++i) this.primary_table.add(new QuadraticSpace<>(true));
         generateHashFunction(true);
@@ -21,8 +22,9 @@ public class LinearSpace<T> extends HashTable<T>{
             System.out.println("\nCollision found in primary table at index " + index +"\n");
         }
         boolean inserted = this.primary_table.get(index).insert(value,linear);
-        output();
+        output(false);
         if(inserted) {
+            this.size++;
             this.allocated++;
             return true;
         }
@@ -33,7 +35,7 @@ public class LinearSpace<T> extends HashTable<T>{
     boolean delete(T value) {
         int index = getHashIndex(value);
         boolean deleted = this.primary_table.get(index).delete(value);
-        output();
+        output(true);
         if(deleted) {
             this.allocated--;
             return true;
@@ -108,7 +110,7 @@ public class LinearSpace<T> extends HashTable<T>{
         }
     }
 
-    void output(){
+    void output(boolean delete){
         System.out.println("\nnumber of collisions at the primary table = " + this.collisions);
         System.out.println("primary table size = " + this.primary_table.size());
         int sizeSum = 0;

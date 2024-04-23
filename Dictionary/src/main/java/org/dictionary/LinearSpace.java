@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class LinearSpace<T> extends HashTable<T>{
 
     private ArrayList<QuadraticSpace<T>> primary_table;
+    private int collisions = 0;
 
     public LinearSpace() {
         this.primary_table = new ArrayList<QuadraticSpace<T>>(this.size);
@@ -15,6 +16,10 @@ public class LinearSpace<T> extends HashTable<T>{
     @Override
     public boolean insert(T value ,boolean linear) {
         int index = getHashIndex(value);
+        if(this.primary_table.get(index).primaryTable.length != 1 || this.primary_table.get(index).primaryTable[0] != null ){
+            this.collisions++;
+            System.out.println("\nCollision found in primary table at index " + index +"\n");
+        }
         boolean inserted = this.primary_table.get(index).insert(value,linear);
         if(inserted) {
             this.allocated++;
@@ -52,6 +57,7 @@ public class LinearSpace<T> extends HashTable<T>{
             if (!search(item)) additionalLength++;
         }
         int newLength = additionalLength;
+        System.out.println(newLength);
         if (newLength == 0) {
             System.out.println("No New Words Can be Added, No Need for Rehashing.");
             return;
@@ -98,7 +104,13 @@ public class LinearSpace<T> extends HashTable<T>{
             if(item == null) continue;
             insert(item,true);
         }
-        test();
+        System.out.println("\nprimary table size = " + this.primary_table.size());
+        System.out.println("number of collisions at the primary table = " + this.collisions);
+        for (int i = 0; i < this.size; ++i) {
+            if (this.primary_table.get(i).primaryTable.length == 1 && this.primary_table.get(i).primaryTable[0] == null)
+                continue;
+            System.out.println("secondary table at index "+i+": size = " + this.primary_table.get(i).primaryTable.length);
+        }
     }
 
     void test(){

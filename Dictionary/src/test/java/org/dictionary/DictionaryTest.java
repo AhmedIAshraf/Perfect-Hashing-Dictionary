@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,8 +21,9 @@ public class DictionaryTest {
             "distinct1000words.txt",
             "distinct10000words.txt",
             "distinct100000words.txt",
-            "distinct31622words.txt",
             "distinct1000000words.txt",
+            "distinct31622words.txt",
+            "distinct31624words.txt"
     };
 
     private final String[] nonDistinctFileNames = {
@@ -33,53 +35,77 @@ public class DictionaryTest {
     };
 
     private static final String path = "C:\\Users\\WORK UEFI\\OneDrive - Alexandria University\\Desktop\\Perfect-Hashing-Dictionary\\Dictionary\\src\\test\\resources\\";
-    private static final int TEST_CASES = 10;
 
-    private static Stream<Arguments> provideInitialSizeAndMethod() {
+    private static Stream<Arguments> provideInsertData() {
         return Stream.of(
                 Arguments.of(0, 1),
                 Arguments.of(0, 2),
-                Arguments.of(100, 1),
-                Arguments.of(100, 2),
-                Arguments.of(1000, 1),
-                Arguments.of(1000, 2),
-                Arguments.of(10000, 1),
-                Arguments.of(10000, 2),
-                Arguments.of(100000, 1)
+                Arguments.of(1, 1),
+                Arguments.of(1, 2),
+                Arguments.of(2, 1),
+                Arguments.of(2, 2),
+                Arguments.of(3, 1),
+                Arguments.of(3, 2),
+                Arguments.of(4, 1)
+        );
+    }
+
+    public static Stream<Arguments> provideBatchInsertData() {
+        return Stream.of(
+                Arguments.of(0, 1, true),
+                Arguments.of(0, 1, false),
+                Arguments.of(0, 2, true),
+                Arguments.of(0, 2, false),
+                Arguments.of(1, 1, true),
+                Arguments.of(1, 1, false),
+                Arguments.of(1, 2, true),
+                Arguments.of(1, 2, false),
+                Arguments.of(2, 1, true),
+                Arguments.of(2, 1, false),
+                Arguments.of(2, 2, true),
+                Arguments.of(2, 2, false),
+//                Arguments.of(3, 1, true),
+//                Arguments.of(3, 1, false),
+                Arguments.of(3, 2, true),
+                Arguments.of(3, 2, false),
+                Arguments.of(4, 1, true),
+                Arguments.of(4, 1, false)
         );
     }
 
     @ParameterizedTest
-    @MethodSource("provideInitialSizeAndMethod")
-    public void testInsertionQuadratic(int initialSize, int method) throws FileNotFoundException {
-        long startTime, endTime, quadraticInsertionTime = 0L;
-        for (int i = 0; i < TEST_CASES; ++i) {
-            Dictionary<String> temp = createDictionary(initialSize, method);
-            System.out.println("Start");
-            startTime = System.currentTimeMillis();
-            System.out.println("Inserted? : " + temp.insert(generateRandomWord()));
-            endTime = System.currentTimeMillis();
-            quadraticInsertionTime += endTime - startTime;
-            System.out.println("Time = " + (endTime - startTime) + "ms");
-            System.out.println("----------------");
-        }
-        System.out.println("Average insertion time : " + (double) quadraticInsertionTime / TEST_CASES);
+    @MethodSource("provideInsertData")
+    public void testInsertion(int fileIndex, int method) throws FileNotFoundException {
+        long startTime, endTime;
+        Dictionary<String> dictionary = new Dictionary<>(method);
+        File file = new File(path.concat(distinctFileNames[fileIndex]));
+
+        startTime = System.currentTimeMillis();
+        System.out.println("Inserted? : " + dictionary.insert(generateRandomWord()));
+        endTime = System.currentTimeMillis();
+        System.out.println("Time = " + (endTime - startTime) + "ms");
     }
 
-    @Test
-    public void testInsertionLinear() {
-        Dictionary<String> dictionary = new Dictionary<>(1);
+    /**
+     * Test batch insertion with different number of words on different dictionary sizes.
+     * Expected O(K).
+     * K is number of not repeated words to be inserted.
+     **/
+    @ParameterizedTest
+    @MethodSource("provideBatchInsertData")
+    public void testBatchInsert(int fileIndex, int method, boolean isDistinct) throws FileNotFoundException {
+        Dictionary<String> dictionary = new Dictionary<>(method);
+        File file;
+        if (isDistinct)
+            file = new File(path.concat(distinctFileNames[fileIndex]));
+        else
+            file = new File(path.concat(nonDistinctFileNames[fileIndex]));
 
-        long startTime, endTime, quadraticInsertionTime = 0L;
-        for (int i = 0; i < TEST_CASES; ++i) {
-            if (i % 2 == 0) continue;
-            startTime = System.currentTimeMillis();
-            System.out.println(dictionary.insert(generateRandomWord()));
-            endTime = System.currentTimeMillis();
-            quadraticInsertionTime += endTime - startTime;
-            System.out.println(endTime - startTime + "ms");
-        }
-        System.out.println("Average insertion time : " + (double) quadraticInsertionTime / TEST_CASES);
+        long startTime, endTime;
+        startTime = System.currentTimeMillis();
+        dictionary.batchInsert(readFile(file));
+        endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms");
     }
 
     @Test
@@ -100,38 +126,7 @@ public class DictionaryTest {
         assertTrue(dictionary.search("asdhais"));
     }
 
-    /**
-     * Test batch insertion with different number of words on different dictionary sizes.
-     * Expected O(K).
-     * K is number of not repeated words to be inserted.
-     **/
-    @Test
-    public void testBatchInsertQuadratic() throws FileNotFoundException {
-        File file = new File(path.concat(distinctFileNames[0]));
-        ArrayList<String> wordList = new ArrayList<>();
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            wordList.add(line);
-        }
-        scanner.close();
 
-        String[] words =  wordList.toArray(new String[0]);
-
-        long startTime, endTime, quadraticBatchInsertionTime = 0L;
-        for (int i = 0; i < TEST_CASES; ++i) {
-            startTime = System.currentTimeMillis();
-            Dictionary<String> dictionary = new Dictionary<>(2);
-            dictionary.batchInsert(words);
-            endTime = System.currentTimeMillis();
-            quadraticBatchInsertionTime += endTime - startTime;
-            System.out.println(endTime - startTime + "ms");
-            for (String word : words)
-                assertTrue(dictionary.search(word));
-
-        }
-        System.out.println("Average insertion time : " + (double) quadraticBatchInsertionTime / TEST_CASES);
-    }
 
     /**
      * Test batch deletion with different number of words on different dictionary sizes.
@@ -143,9 +138,24 @@ public class DictionaryTest {
 
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    public void comprehensiveTests(int method) {
+        Dictionary<String> dictionary = new Dictionary<>(method);
+        int size = 0;
+        for (int i = 0; i < Integer.MAX_VALUE; ++i) {
+            if (i % 2 == 0) continue;
+            String word = generateRandomWord();
+            if (dictionary.insert(word)) size++;
+            System.out.println(dictionary.search(word));
+            System.out.println("Size = " + size);
+            System.out.println();
+        }
+    }
+
     /**
     * Generates random string with max size equal 10.
-    * @RETURN generated string.
+    * @return  generated string.
      **/
     private String generateRandomWord() {
         StringBuilder word = new StringBuilder();
@@ -158,20 +168,6 @@ public class DictionaryTest {
         return word.toString();
     }
 
-    private Dictionary<String> createDictionary(int initialSize, int method) throws FileNotFoundException {
-        Dictionary<String> dictionary = new Dictionary<>(method);
-        File file = switch (initialSize) {
-            case 100 -> new File(path.concat(distinctFileNames[0]));
-            case 1000 -> new File(path.concat(distinctFileNames[1]));
-            case 10000 -> new File(path.concat(distinctFileNames[2]));
-            case 100000 -> new File(path.concat(distinctFileNames[3]));
-            case 1000000 -> new File(path.concat(distinctFileNames[5]));
-            default -> null;
-        };
-        if (file != null)
-            dictionary.batchInsert(readFile(file));
-        return dictionary;
-    }
 
     private String[] readFile(File file) throws FileNotFoundException {
         if (file == null)

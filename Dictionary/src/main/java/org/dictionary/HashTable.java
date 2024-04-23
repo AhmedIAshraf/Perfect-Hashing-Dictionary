@@ -8,6 +8,7 @@ public abstract class HashTable <T>{
     protected int size = 3;
     protected byte[][] hashFunction;
     protected int allocated = 0;
+    protected int collisions = 0;
     protected int counterOfRehashing = 0;
     private final Random rand = new Random();
 

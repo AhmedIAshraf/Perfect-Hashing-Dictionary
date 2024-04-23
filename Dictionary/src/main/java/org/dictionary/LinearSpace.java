@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class LinearSpace<T> extends HashTable<T>{
 
     private ArrayList<QuadraticSpace<T>> primary_table;
-    private int collisions = 0;
 
     public LinearSpace() {
         this.primary_table = new ArrayList<QuadraticSpace<T>>(this.size);

@@ -104,13 +104,15 @@ public class LinearSpace<T> extends HashTable<T>{
             if(item == null) continue;
             insert(item,true);
         }
-        System.out.println("\nprimary table size = " + this.primary_table.size());
-        System.out.println("number of collisions at the primary table = " + this.collisions);
+        System.out.println("\nnumber of collisions at the primary table = " + this.collisions);
+        System.out.println("primary table size = " + this.primary_table.size());
+        int sizeSum = 0;
         for (int i = 0; i < this.size; ++i) {
             if (this.primary_table.get(i).primaryTable.length == 1 && this.primary_table.get(i).primaryTable[0] == null)
                 continue;
-            System.out.println("secondary table at index "+i+": size = " + this.primary_table.get(i).primaryTable.length);
+            sizeSum += this.primary_table.get(i).primaryTable.length;
         }
+        System.out.println("sum of secondary tables sizes = " + sizeSum + "\n");
     }
 
     void test(){

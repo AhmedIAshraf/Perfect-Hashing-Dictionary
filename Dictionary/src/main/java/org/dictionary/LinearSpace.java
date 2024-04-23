@@ -32,12 +32,13 @@ public class LinearSpace<T> extends HashTable<T>{
     @Override
     boolean delete(T value) {
         int index = getHashIndex(value);
-        if (this.primary_table.get(index) == null)
-            return false;
-        else{
-            this.primary_table.get(index).delete(value);
+        boolean deleted = this.primary_table.get(index).delete(value);
+        output();
+        if(deleted) {
+            this.allocated--;
             return true;
         }
+        return false;
     }
 
     @Override

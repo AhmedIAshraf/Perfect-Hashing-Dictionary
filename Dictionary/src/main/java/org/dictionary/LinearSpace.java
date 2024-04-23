@@ -111,7 +111,7 @@ public class LinearSpace<T> extends HashTable<T>{
     }
 
     void output(boolean delete){
-        System.out.println("\nnumber of collisions at the primary table = " + this.collisions);
+        if(delete) System.out.println("\nnumber of collisions at the primary table = " + this.collisions);
         System.out.println("primary table size = " + this.primary_table.size());
         int sizeSum = 0;
         for (int i = 0; i < this.size; ++i) {

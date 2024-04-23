@@ -21,30 +21,48 @@ public abstract class HashTable <T>{
         }
         else numberOfBits = (Math.log(this.size*this.size)/Math.log(2));
 //System.out.println("Number of bits: " + numberOfBits);
-        this.hashFunction = new byte[(int)numberOfBits][32];
+        this.hashFunction = new byte[(int)numberOfBits][50];
         for (int i = 0; i < hashFunction.length ; i++) {
-            for (int j = 0; j < 32; j++) {
+            for (int j = 0; j < 50; j++) {
                 hashFunction[i][j] = (byte) rand.nextInt(2);
             }
         }
     }
 
     protected int getHashIndex(T value){
-        String bin = Integer.toBinaryString(value.hashCode());
-//if(value.equals("c")||value.equals("cc"))System.out.println("Word is "+value+" ,,, hash code = "+bin);
-        byte word[] = new byte[32];
+//        String bin = Integer.toBinaryString(value.hashCode());
+//        byte word[] = new byte[50];
+//        int j=0;
+//        for (int i = bin.length()-1; i >=0 ; i--) { word[j++] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
+//        int index = matrixMultiplication(this.hashFunction,word);
+//        return index;
+        String bin = "";
+        byte word[] = new byte[50];
+        char[] chars = value.toString().toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            bin += toBinary(chars[i]-'a'+1);
+        }
         int j=0;
         for (int i = bin.length()-1; i >=0 ; i--) { word[j++] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
-//if(value.equals("c")||value.equals("cc")) for(byte i : word) System.out.print(i);
         int index = matrixMultiplication(this.hashFunction,word);
         return index;
+    }
+
+    String toBinary(int n){
+        char[] bin = "00000".toCharArray();
+        int i=4;
+        while(i>=0){
+            bin[i--] = (n%2==1) ? '1' : '0';
+            n = n/2;
+        }
+        return new String(bin);
     }
 
     private int matrixMultiplication(byte[][] a, byte[] b){
         byte[] c = new byte[hashFunction.length];
         int indexInDecimal=0;
         for (int i = 0; i < c.length; i++) {
-            for (int j = 0; j < 32; j++) {
+            for (int j = 0; j < 50; j++) {
                 c[i] += (byte) ((a[i][j]*b[j])%2);
             }
             c[i] %= 2;

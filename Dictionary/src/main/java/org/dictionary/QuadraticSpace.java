@@ -81,7 +81,6 @@ public class QuadraticSpace<T> extends HashTable<T>{
     }
 
     private void reHashing(int length,T[] insertedElements){
-        System.out.println("Length = "+length+" Table Length = "+length*length);
         this.size = length;
         boolean collisionsExist = true;
         int numberOfInsertedElements=0;
@@ -136,6 +135,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
                 }
                 System.out.println("As Rehashing was Necessary, it Took "+counterOfRehashing+" iteration(s) to (Re)build the Hash Table.");
                 if(numberOfInsertedElements>1) System.out.println("Number of Inserted Elements = "+numberOfInsertedElements+" From "+insertedElements.length+" Received Words.");
+                System.out.println("Length = "+length+" Table Length = "+length*length);
                 this.primaryTable = temp;
             }
         }

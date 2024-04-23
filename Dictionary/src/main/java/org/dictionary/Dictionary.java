@@ -1,8 +1,8 @@
 package org.dictionary;
 
 public class Dictionary <T> {
-    private final int methodOfHash;
-    private final HashTable<String> hashTable;
+    private int methodOfHash;
+    private HashTable<String> hashTable;
 
     public Dictionary(int method) {
         methodOfHash = method;
@@ -11,7 +11,6 @@ public class Dictionary <T> {
         else
             hashTable = new QuadraticSpace<>(false);
     }
-
     /**
      * Inserts a word into the dictionary.
      *
@@ -19,8 +18,9 @@ public class Dictionary <T> {
      * @return {@code true} if the word was successfully inserted, {@code false} if it already exists.
      */
     public boolean insert(String word) {
-        boolean linear = methodOfHash == 1;
-        return hashTable.insert(word,linear);
+        boolean linear = methodOfHash == 1 ? true : false;
+        boolean test=hashTable.insert(word,linear);
+        return test;
     }
 
     /**
@@ -31,7 +31,8 @@ public class Dictionary <T> {
      * exist in the dictionary.
      */
     public boolean delete(String word) {
-        return hashTable.delete(word);
+        boolean test=hashTable.delete(word);
+        return test;
     }
 
     /**
@@ -42,7 +43,8 @@ public class Dictionary <T> {
      * exist in the dictionary.
      */
     public boolean search(String word) {
-        return hashTable.search(word);
+        boolean test=hashTable.search(word);
+        return test;
     }
 
     /**

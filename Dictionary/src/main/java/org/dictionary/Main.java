@@ -3,13 +3,22 @@ package org.dictionary;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final List<String> msgList = new ArrayList<>(List.of(" inserted successfully", " already exists",
-            " doesn't exist", " found", " deleted successfully"));
+    private static final String[] msgList = {
+            " inserted successfully",
+            " already exists",
+            " doesn't exist",
+            " found",
+            " deleted successfully"
+    };
+
+    /**
+     * Reads array of words each on separated line.
+     * @return Array of words read from the file
+     */
     private static String[] readFile() throws FileNotFoundException {
         File file;
         do {
@@ -39,7 +48,12 @@ public class Main {
         }
     }
 
-    private static boolean isNumeric(String str) {
+    /**
+     * Checks if a string is a number or not.
+     * @param str
+     * @return true if the string is
+     */
+    private static boolean isNumeric(String str) { // Replace it with Nan=N
         try {
             Double.parseDouble(str);
             return true;
@@ -87,8 +101,10 @@ public class Main {
                     case 1:
                         System.out.println("Enter String");
                         pathOrElement = scanner.next();
+                        if (!isNumeric(pathOrElement))
+                            pathOrElement = pathOrElement.toLowerCase();
                         result = dictionary.insert(pathOrElement);
-                        System.out.println(pathOrElement + (result ? msgList.get(0) : msgList.get(1)));
+                        System.out.println(pathOrElement + (result ? msgList[0] : msgList[1]));
                         break;
                     case 2:
                         System.out.println("Enter String");
@@ -96,7 +112,7 @@ public class Main {
                         if (!isNumeric(pathOrElement))
                             pathOrElement = pathOrElement.toLowerCase();
                         result = dictionary.delete(pathOrElement);
-                        System.out.println(pathOrElement + (result ? msgList.get(4) : msgList.get(2)));
+                        System.out.println(pathOrElement + (result ? msgList[4] : msgList[2]));
                         break;
                     case 3:
                         System.out.println("Enter String");
@@ -104,7 +120,7 @@ public class Main {
                         if (!isNumeric(pathOrElement))
                             pathOrElement = pathOrElement.toLowerCase();
                         result = dictionary.search(pathOrElement);
-                        System.out.println(pathOrElement + (result ? msgList.get(3) : msgList.get(2)));
+                        System.out.println(pathOrElement + (result ? msgList[3] : msgList[2]));
                         break;
                     case 4:
                         words = readFile();

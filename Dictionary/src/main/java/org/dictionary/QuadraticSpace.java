@@ -1,5 +1,6 @@
 package org.dictionary;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class QuadraticSpace<T> extends HashTable<T>{
 
@@ -55,9 +56,9 @@ public class QuadraticSpace<T> extends HashTable<T>{
 
     public void batchInsert(T[] items){
         int additionalLength=0;
-        for (int i=0;i<items.length;i++){
-            if (!search(items[i])) additionalLength++;
-        }
+        for (T item : items)
+            if (!search(item)) additionalLength++;
+
         int newLength=additionalLength;
         if (newLength==0){
             System.out.println("No New Words Can be Added, No Need for Rehashing.");
@@ -89,7 +90,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
         T[] temp;
         while (collisionsExist){
             temp = (T[]) new Object[length*length];
-            for (int i = 0; i < temp.length; i++){temp[i] = null;}
+            Arrays.fill(temp, null);
             allocated = 0;
             numberOfInsertedElements=0;
             counterOfRehashing++;
@@ -113,18 +114,20 @@ public class QuadraticSpace<T> extends HashTable<T>{
                 }
             }
             if (!collisionsExist){
-                for (int i = 0; i < insertedElements.length; i++){
-                    if (insertedElements[i]==null){continue;}
-                    int index=getHashIndex(insertedElements[i]);
+                for (T insertedElement : insertedElements) {
+                    if (insertedElement == null) {
+                        continue;
+                    }
+                    int index = getHashIndex(insertedElement);
 //System.out.println("word is : "+insertedElements[i]+" with Index = "+index);
-                    if (temp[index]==null){
-                        temp[index]=insertedElements[i];
+                    if (temp[index] == null) {
+                        temp[index] = insertedElement;
                         allocated++;
                         numberOfInsertedElements++;
-                    }else if (temp[index].equals(insertedElements[i])) {
-                        messages.add("The Word '" + insertedElements[i] + "' Already Exists.");
-                    }else{
-                        collisionsExist=true;
+                    } else if (temp[index].equals(insertedElement)) {
+                        messages.add("The Word '" + insertedElement + "' Already Exists.");
+                    } else {
+                        collisionsExist = true;
                         break;
                     }
                 }

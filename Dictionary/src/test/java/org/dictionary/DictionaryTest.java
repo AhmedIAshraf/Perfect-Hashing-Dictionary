@@ -36,7 +36,7 @@ public class DictionaryTest {
 
     private static final String path = "C:\\Users\\WORK UEFI\\OneDrive - Alexandria University\\Desktop\\Perfect-Hashing-Dictionary\\Dictionary\\src\\test\\resources\\";
 
-    private static Stream<Arguments> provideInsertData() {
+    private static Stream<Arguments> provideData() {
         return Stream.of(
                 Arguments.of(0, 1),
                 Arguments.of(0, 2),
@@ -64,17 +64,17 @@ public class DictionaryTest {
                 Arguments.of(2, 1, false),
                 Arguments.of(2, 2, true),
                 Arguments.of(2, 2, false),
-//                Arguments.of(3, 1, true),
-//                Arguments.of(3, 1, false),
-                Arguments.of(3, 2, true),
-                Arguments.of(3, 2, false),
+                Arguments.of(3, 1, true),
+                Arguments.of(3, 1, false),
                 Arguments.of(4, 1, true),
-                Arguments.of(4, 1, false)
+                Arguments.of(4, 1, false),
+                Arguments.of(3, 2, true),
+                Arguments.of(3, 2, false)
         );
     }
 
     @ParameterizedTest
-    @MethodSource("provideInsertData")
+    @MethodSource("provideData")
     public void testInsertion(int fileIndex, int method) throws FileNotFoundException {
         long startTime, endTime;
         Dictionary<String> dictionary = new Dictionary<>(method);
@@ -84,6 +84,46 @@ public class DictionaryTest {
         System.out.println("Inserted? : " + dictionary.insert(generateRandomWord()));
         endTime = System.currentTimeMillis();
         System.out.println("Time = " + (endTime - startTime) + "ms");
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideData")
+    public void testDeletion(int fileIndex, int method) {
+        Dictionary<String> dictionary = new Dictionary<>(method);
+        assertTrue(dictionary.delete("apple"));
+        assertFalse(dictionary.delete("apple"));
+    }
+
+    /**
+     * Test searching for words in different dictionary sizes.
+     * Expected O(1).
+     **/
+    @ParameterizedTest
+    @MethodSource("provideData")
+    public void testSearch(int initialSize, int method) {
+        long startTime, endTime;
+        Dictionary<String> dictionary = new Dictionary<>(method);
+        startTime = System.currentTimeMillis();
+        assertFalse(dictionary.search("kalolo"));
+        endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms");
+
+        startTime = System.currentTimeMillis();
+        assertTrue(dictionary.search(""));
+        endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms");
+    }
+
+
+
+    /**
+     * Test batch deletion with different number of words on different dictionary sizes.
+     * Expected O(K).
+     * K is number of words to be deleted.
+     **/
+    @Test
+    public void testBatchDelete() {
+
     }
 
     /**
@@ -106,36 +146,6 @@ public class DictionaryTest {
         dictionary.batchInsert(readFile(file));
         endTime = System.currentTimeMillis();
         System.out.println(endTime - startTime + "ms");
-    }
-
-    @Test
-    public void testDeletion() {
-        Dictionary<String> dictionary = new Dictionary<>(2);
-        assertTrue(dictionary.delete("apple"));
-        assertFalse(dictionary.search("apple"));
-    }
-
-    /**
-     * Test searching for words in different dictionary sizes.
-     * Expected O(1).
-     **/
-    @Test
-    public void testSearch() {
-        Dictionary<String> dictionary = new Dictionary<>(1);
-        dictionary.insert("asdhais");
-        assertTrue(dictionary.search("asdhais"));
-    }
-
-
-
-    /**
-     * Test batch deletion with different number of words on different dictionary sizes.
-     * Expected O(K).
-     * K is number of words to be deleted.
-     **/
-    @Test
-    public void testBatchDelete() {
-
     }
 
     @ParameterizedTest

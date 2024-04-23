@@ -1,9 +1,6 @@
-package org.dictionary;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -12,43 +9,35 @@ public class WriteWordsToFile {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter number of words: ");
-        int numberOfWords= scanner.nextInt();
-        System.out.print("Enter 0 for distinct else for non: ");
-        int is_distinct = scanner.nextByte();
-        String distinct = (is_distinct == 0 ? "distinct" : "non-distinct");
-        String filePath = distinct.concat(String.valueOf(numberOfWords).concat("words.txt"));
+        int numberOfWords = scanner.nextInt();
+        String filePath = "words.txt";
 
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            ArrayList<String> wordList = generateUniqueWords(numberOfWords, is_distinct);
+            Set<String> wordSet = generateUniqueWords(numberOfWords);
 
-            for (String word : wordList) {
+            for (String word : wordSet) {
                 bufferedWriter.write(word);
                 bufferedWriter.newLine();
             }
 
             bufferedWriter.close();
+            System.out.println("Words written to " + filePath);
 
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file: " + e.getMessage());
         }
     }
 
-    private static ArrayList<String> generateUniqueWords(int numberOfWords, int is_distinct) {
-        ArrayList<String> wordList = new ArrayList<>();
-        while (wordList.size() < numberOfWords) {
+    private static Set<String> generateUniqueWords(int numberOfWords) {
+        Set<String> wordSet = new HashSet<>();
+        while (wordSet.size() < numberOfWords) {
             String word = generateRandomWord();
-            if (is_distinct == 0) {
-                if (!wordList.contains(word))
-                    wordList.add(word);
-            } else
-                wordList.add(word);
+            wordSet.add(word);
         }
-
-
-        return wordList;
+        return wordSet;
     }
 
     private static String generateRandomWord() {
@@ -63,4 +52,3 @@ public class WriteWordsToFile {
         return word.toString();
     }
 }
-

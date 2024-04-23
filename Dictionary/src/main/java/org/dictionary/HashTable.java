@@ -36,16 +36,15 @@ public abstract class HashTable <T>{
 //        for (int i = bin.length()-1; i >=0 ; i--) { word[j++] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
 //        int index = matrixMultiplication(this.hashFunction,word);
 //        return index;
-        String bin = "";
-        byte word[] = new byte[50];
+        StringBuilder bin = new StringBuilder();
+        byte[] word = new byte[50];
         char[] chars = value.toString().toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            bin += toBinary(chars[i]-'a'+1);
-        }
+        for (char aChar : chars)
+            bin.append(toBinary(aChar - 'a' + 1));
+
         int j=0;
         for (int i = bin.length()-1; i >=0 ; i--) { word[j++] = (byte) (bin.charAt(i) == '1' ? 1 : 0); }
-        int index = matrixMultiplication(this.hashFunction,word);
-        return index;
+        return matrixMultiplication(this.hashFunction,word);
     }
 
     String toBinary(int n){
@@ -66,7 +65,7 @@ public abstract class HashTable <T>{
                 c[i] += (byte) ((a[i][j]*b[j])%2);
             }
             c[i] %= 2;
-            indexInDecimal += c[i]*(Math.pow(2,c.length-1-i));
+            indexInDecimal += (int) (c[i]*(Math.pow(2,c.length-1-i)));
         }
         return indexInDecimal;
     }

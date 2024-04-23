@@ -13,9 +13,9 @@ public class LinearSpace<T> extends HashTable<T>{
     }
 
     @Override
-    public boolean insert(T value) {
+    public boolean insert(T value ,boolean linear) {
         int index = getHashIndex(value);
-        boolean inserted = this.primary_table.get(index).insert(value);
+        boolean inserted = this.primary_table.get(index).insert(value,linear);
         if(inserted) {
             this.allocated++;
             return true;
@@ -96,7 +96,7 @@ public class LinearSpace<T> extends HashTable<T>{
         generateHashFunction(true);
         for (T item : insertedElements) {
             if(item == null) continue;
-            insert(item);
+            insert(item,true);
         }
         test();
     }

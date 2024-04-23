@@ -21,6 +21,7 @@ public class LinearSpace<T> extends HashTable<T>{
             System.out.println("\nCollision found in primary table at index " + index +"\n");
         }
         boolean inserted = this.primary_table.get(index).insert(value,linear);
+        output();
         if(inserted) {
             this.allocated++;
             return true;
@@ -45,7 +46,6 @@ public class LinearSpace<T> extends HashTable<T>{
         if (this.primary_table.get(index) == null)
             return false;
         else{
-            this.allocated--;
             return this.primary_table.get(index).search(value);
         }
     }
@@ -63,6 +63,7 @@ public class LinearSpace<T> extends HashTable<T>{
             return;
         }
         if (this.allocated!=0) newLength += (int)this.size;
+        System.out.println(newLength);
         T[] temp = (T[]) new Object[newLength];
         int k = 0;
         for (int i = 0; i < this.size; ++i) {
@@ -70,7 +71,7 @@ public class LinearSpace<T> extends HashTable<T>{
                 int length = this.primary_table.get(i).primaryTable.length;
                 for (int j = 0; j < length; ++j) {
                     if (this.primary_table.get(i).primaryTable[j] == null) continue;
-                    else temp[k++] = this.primary_table.get(i).primaryTable[j];
+                    temp[k++] = this.primary_table.get(i).primaryTable[j];
                 }
             }
         }
@@ -104,6 +105,9 @@ public class LinearSpace<T> extends HashTable<T>{
             if(item == null) continue;
             insert(item,true);
         }
+    }
+
+    void output(){
         System.out.println("\nnumber of collisions at the primary table = " + this.collisions);
         System.out.println("primary table size = " + this.primary_table.size());
         int sizeSum = 0;

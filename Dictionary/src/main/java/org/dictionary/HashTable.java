@@ -5,7 +5,7 @@ import java.util.Random;
 public abstract class HashTable <T>{
 
     protected T[] primaryTable;
-    protected int size = 2;
+    protected int size = 3;
     protected byte[][] hashFunction;
     protected int allocated = 0;
     protected int counterOfRehashing = 0;

@@ -3,12 +3,6 @@ import java.util.ArrayList;
 
 public class QuadraticSpace<T> extends HashTable<T>{
 
-    //    public QuadraticSpace() {
-//        this.primaryTable = (T[]) new Object[this.size*this.size];
-//        for (int i = 0; i < this.size*this.size ; i++) {this.primaryTable[i] = null;}
-//        generateHashFunction();
-//        this.allocated = 0;
-//    }
     public QuadraticSpace(boolean linear) {
         if (linear) this.size=1;
         this.primaryTable = (T[]) new Object[this.size*this.size];
@@ -32,12 +26,12 @@ public class QuadraticSpace<T> extends HashTable<T>{
 //System.out.println("word is : "+value+" with Index = "+index);
         if ((double)this.allocated/(double)primaryTable.length >= 0.75){
             System.out.println("Rehashing is Necessary as the Load Factor (n/m) Exceeded 0.75");
-            reHashing((int)(this.size*2),add);
+            reHashing(allocated,add);
         }else if (this.primaryTable[index]==null){
-//          this.primaryTable[index]=value;
+          this.primaryTable[index]=value;
         }else if(!this.primaryTable[index].equals(value)) {
             System.out.println("Rehashing is Necessary as There is a Collision While Inserting '" + value + "'.");
-            reHashing(this.size, add);
+            reHashing(allocated, add);
         }
         return true;
     }
@@ -69,7 +63,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
             System.out.println("No New Words Can be Added, No Need for Rehashing.");
             return;
         }
-        if (this.allocated!=0) newLength+=(int)this.size;
+        if (this.allocated!=0) newLength+=allocated;
         reHashing(newLength,items);
     }
 

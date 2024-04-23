@@ -1,13 +1,20 @@
 package org.dictionary;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.Arguments;
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class DictionaryTest {
+
     private final String[] distinctFileNames = {
             "distinct100words.txt",
             "distinct1000words.txt",
@@ -28,11 +35,44 @@ public class DictionaryTest {
     private static final String path = "C:\\Users\\WORK UEFI\\OneDrive - Alexandria University\\Desktop\\Perfect-Hashing-Dictionary\\Dictionary\\src\\test\\resources\\";
     private static final int TEST_CASES = 10;
 
-    @Test
-    public void testInsertion() {
-        Dictionary<String> dictionary = new Dictionary<>(2);
+    private static Stream<Arguments> provideInitialSizeAndMethod() {
+        return Stream.of(
+                Arguments.of(0, 1),
+                Arguments.of(0, 2),
+                Arguments.of(100, 1),
+                Arguments.of(100, 2),
+                Arguments.of(1000, 1),
+                Arguments.of(1000, 2),
+                Arguments.of(10000, 1),
+                Arguments.of(10000, 2),
+                Arguments.of(100000, 1)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInitialSizeAndMethod")
+    public void testInsertionQuadratic(int initialSize, int method) throws FileNotFoundException {
         long startTime, endTime, quadraticInsertionTime = 0L;
         for (int i = 0; i < TEST_CASES; ++i) {
+            Dictionary<String> temp = createDictionary(initialSize, method);
+            System.out.println("Start");
+            startTime = System.currentTimeMillis();
+            System.out.println("Inserted? : " + temp.insert(generateRandomWord()));
+            endTime = System.currentTimeMillis();
+            quadraticInsertionTime += endTime - startTime;
+            System.out.println("Time = " + (endTime - startTime) + "ms");
+            System.out.println("----------------");
+        }
+        System.out.println("Average insertion time : " + (double) quadraticInsertionTime / TEST_CASES);
+    }
+
+    @Test
+    public void testInsertionLinear() {
+        Dictionary<String> dictionary = new Dictionary<>(1);
+
+        long startTime, endTime, quadraticInsertionTime = 0L;
+        for (int i = 0; i < TEST_CASES; ++i) {
+            if (i % 2 == 0) continue;
             startTime = System.currentTimeMillis();
             System.out.println(dictionary.insert(generateRandomWord()));
             endTime = System.currentTimeMillis();
@@ -66,7 +106,7 @@ public class DictionaryTest {
      * K is number of not repeated words to be inserted.
      **/
     @Test
-    public void testBatchInsert() throws FileNotFoundException {
+    public void testBatchInsertQuadratic() throws FileNotFoundException {
         File file = new File(path.concat(distinctFileNames[0]));
         ArrayList<String> wordList = new ArrayList<>();
         Scanner scanner = new Scanner(file);
@@ -116,5 +156,34 @@ public class DictionaryTest {
             word.append(randomChar);
         }
         return word.toString();
+    }
+
+    private Dictionary<String> createDictionary(int initialSize, int method) throws FileNotFoundException {
+        Dictionary<String> dictionary = new Dictionary<>(method);
+        File file = switch (initialSize) {
+            case 100 -> new File(path.concat(distinctFileNames[0]));
+            case 1000 -> new File(path.concat(distinctFileNames[1]));
+            case 10000 -> new File(path.concat(distinctFileNames[2]));
+            case 100000 -> new File(path.concat(distinctFileNames[3]));
+            case 1000000 -> new File(path.concat(distinctFileNames[5]));
+            default -> null;
+        };
+        if (file != null)
+            dictionary.batchInsert(readFile(file));
+        return dictionary;
+    }
+
+    private String[] readFile(File file) throws FileNotFoundException {
+        if (file == null)
+            return new String[]{};
+        ArrayList<String> wordList = new ArrayList<>();
+        Scanner fileScanner = new Scanner(file);
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            wordList.add(line);
+        }
+        fileScanner.close();
+
+        return wordList.toArray(new String[0]);
     }
 }

@@ -1,6 +1,5 @@
 package org.dictionary;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
@@ -11,25 +10,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class DictionaryTest {
 
     private final String[] distinctFileNames = {
-            "distinct100words.txt",
-            "distinct1000words.txt",
-            "distinct10000words.txt",
-            "distinct100000words.txt",
-            "distinct1000000words.txt"
-    };
-
-    private final String[] nonDistinctFileNames = {
-            "non-distinct100words.txt",
-            "non-distinct1000words.txt",
-            "non-distinct10000words.txt",
-            "non-distinct100000words.txt",
-            "non-distinct1000000words.txt"
+            "100_words.txt",
+            "1k_words.txt",
+            "10k_words.txt",
+            "100k_words.txt",
+            "1M_words.txt"
     };
 
     private static final String path = "C:\\Users\\WORK UEFI\\OneDrive - Alexandria University\\Desktop\\Perfect-Hashing-Dictionary\\Dictionary\\src\\test\\resources\\";
@@ -70,7 +62,9 @@ public class DictionaryTest {
         File file = new File(path.concat(distinctFileNames[fileIndex]));
         String[] words = readFile(file);
         Dictionary<String> dictionary = new Dictionary<>(method);
+
         dictionary.batchInsert(words);
+
         startTime = System.currentTimeMillis();
         System.out.println("Inserted? : " + dictionary.insert(word));
         endTime = System.currentTimeMillis();
@@ -80,10 +74,27 @@ public class DictionaryTest {
 
     @ParameterizedTest
     @MethodSource("provideData")
-    public void testDeletion(int fileIndex, int method) {
+    public void testDeletion(int fileIndex, int method) throws FileNotFoundException {
         Dictionary<String> dictionary = new Dictionary<>(method);
-        assertTrue(dictionary.delete("apple"));
-        assertFalse(dictionary.delete("apple"));
+        File file = new File(path.concat(distinctFileNames[fileIndex]));
+        String[] words = readFile(file);
+        dictionary.batchInsert(words);
+
+        String str = generateRandomWord();
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(words));
+        while (list.contains(str))
+            str = generateRandomWord();
+        long startTime, endTime;
+
+        startTime = System.currentTimeMillis();
+        assertTrue(dictionary.delete(words[20]));
+        endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms");
+
+        startTime = System.currentTimeMillis();
+        assertFalse(dictionary.delete(str));
+        endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms");
     }
 
     /**
@@ -92,16 +103,25 @@ public class DictionaryTest {
      **/
     @ParameterizedTest
     @MethodSource("provideData")
-    public void testSearch(int fileIndex, int method) {
+    public void testSearch(int fileIndex, int method) throws FileNotFoundException {
         long startTime, endTime;
         Dictionary<String> dictionary = new Dictionary<>(method);
+        File file = new File(path.concat(distinctFileNames[fileIndex]));
+        String[] words = readFile(file);
+        dictionary.batchInsert(words);
+
         startTime = System.currentTimeMillis();
-        assertFalse(dictionary.search("kalolo"));
+        assertTrue(dictionary.search(words[20]));
         endTime = System.currentTimeMillis();
         System.out.println(endTime - startTime + "ms");
 
+        String str = generateRandomWord();
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(words));
+        while (list.contains(str))
+            str = generateRandomWord();
+
         startTime = System.currentTimeMillis();
-        assertTrue(dictionary.search(""));
+        assertFalse(dictionary.search(str));
         endTime = System.currentTimeMillis();
         System.out.println(endTime - startTime + "ms");
     }
@@ -113,9 +133,23 @@ public class DictionaryTest {
      * Expected O(K).
      * K is number of words to be deleted.
      **/
-    @Test
-    public void testBatchDelete() {
+    @ParameterizedTest
+    @MethodSource("provideBatchInsertData")
+    public void testBatchDelete(int fileIndex, int method) throws FileNotFoundException {
+        long startTime, endTime;
 
+        Dictionary<String> dictionary = new Dictionary<>(method);
+        File file = new File(path.concat(distinctFileNames[fileIndex]));
+        String[] words = readFile(file);
+        String[] testExistWords = new String[10];
+        System.arraycopy(words, 0, testExistWords, 0, 10);
+
+        dictionary.batchInsert(words);
+
+        startTime = System.currentTimeMillis();
+        dictionary.batchDelete(testExistWords);
+        endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms");
     }
 
     /**
@@ -136,38 +170,6 @@ public class DictionaryTest {
         System.out.println(endTime - startTime + "ms");
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2})
-    public void testInsertEmptyDictionary(int method) {
-        Dictionary<String> dictionary = new Dictionary<>(method);
-        long startTime, endTime;
-        startTime = System.currentTimeMillis();
-        assertTrue(dictionary.insert(generateRandomWord()));
-        endTime = System.currentTimeMillis();
-        System.out.println(endTime - startTime + "ms");
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2})
-    public void testDeleteEmptyDictionary(int method) {
-        Dictionary<String> dictionary = new Dictionary<>(method);
-        long startTime, endTime;
-        startTime = System.currentTimeMillis();
-        assertFalse(dictionary.delete(generateRandomWord()));
-        endTime = System.currentTimeMillis();
-        System.out.println(endTime - startTime + "ms");
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2})
-    public void testSearchEmptyDictionary(int method) {
-        Dictionary<String> dictionary = new Dictionary<>(method);
-        long startTime, endTime;
-        startTime = System.currentTimeMillis();
-        assertFalse(dictionary.search(generateRandomWord()));
-        endTime = System.currentTimeMillis();
-        System.out.println(endTime - startTime + "ms");
-    }
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2})

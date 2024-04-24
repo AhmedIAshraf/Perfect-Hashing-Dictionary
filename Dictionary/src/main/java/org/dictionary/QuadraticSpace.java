@@ -31,6 +31,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
         }else if (this.primaryTable[index]==null){
           this.primaryTable[index]=value;
         }else if(!this.primaryTable[index].equals(value)) {
+            this.collisions++;
             System.out.println("Rehashing is Necessary as There is a Collision While Inserting '" + value + "'.");
             reHashing(allocated, add);
         }
@@ -66,6 +67,7 @@ public class QuadraticSpace<T> extends HashTable<T>{
         }
         if (this.allocated!=0) newLength+=allocated;
         reHashing(newLength,items);
+        System.out.println("Number Of Collisions = "+this.collisions);
     }
 
     public void batchDelete(T[] items){

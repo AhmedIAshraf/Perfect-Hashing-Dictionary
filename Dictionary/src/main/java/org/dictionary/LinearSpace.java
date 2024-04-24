@@ -5,10 +5,8 @@ import java.util.ArrayList;
 public class LinearSpace<T> extends HashTable<T>{
 
     private ArrayList<QuadraticSpace<T>> primary_table;
-    private int collisions = 0;
 
     public LinearSpace() {
-        this.size = 10;
         this.primary_table = new ArrayList<QuadraticSpace<T>>(this.size);
         for(int i = 0; i < this.size; ++i) this.primary_table.add(new QuadraticSpace<>(true));
         generateHashFunction(true);
@@ -17,17 +15,17 @@ public class LinearSpace<T> extends HashTable<T>{
     @Override
     public boolean insert(T value ,boolean linear) {
         int index = getHashIndex(value);
-        if(this.primary_table.get(index).primaryTable.length != 1 || this.primary_table.get(index).primaryTable[0] != null ){
+        if (this.primary_table.get(index).primaryTable.length != 1 || this.primary_table.get(index).primaryTable[0] != null ) {
             this.collisions++;
             System.out.println("\nCollision found in primary table at index " + index +"\n");
         }
         boolean inserted = this.primary_table.get(index).insert(value,linear);
-        output(false);
         if(inserted) {
-            this.size++;
             this.allocated++;
+            output(false);
             return true;
         }
+        System.out.println(value +"\tAlready Exists.");
         return false;
     }
 
@@ -35,9 +33,9 @@ public class LinearSpace<T> extends HashTable<T>{
     boolean delete(T value) {
         int index = getHashIndex(value);
         boolean deleted = this.primary_table.get(index).delete(value);
-        output(true);
         if(deleted) {
             this.allocated--;
+            output(true);
             return true;
         }
         return false;
@@ -46,27 +44,25 @@ public class LinearSpace<T> extends HashTable<T>{
     @Override
     boolean search(T value) {
         int index = getHashIndex(value);
-        if (this.primary_table.get(index) == null)
-            return false;
-        else{
-            return this.primary_table.get(index).search(value);
-        }
+        return this.primary_table.get(index).search(value);
     }
 
     @Override
     void batchInsert(T[] items) {
         int additionalLength=0;
-        for (T item : items) {
-            if (!search(item)) additionalLength++;
+        for (int i = 0; i < items.length; i++) {
+            if (!search(items[i])) additionalLength++;
+            else{
+                System.out.println(items[i]+"\t Already Exists.");
+            }
         }
         int newLength = additionalLength;
-        System.out.println(newLength);
         if (newLength == 0) {
             System.out.println("No New Words Can be Added, No Need for Rehashing.");
             return;
         }
         if (this.allocated!=0) newLength += (int)this.size;
-        System.out.println(newLength);
+        int prevAllocated = this.allocated;
         T[] temp = (T[]) new Object[newLength];
         int k = 0;
         for (int i = 0; i < this.size; ++i) {
@@ -80,9 +76,12 @@ public class LinearSpace<T> extends HashTable<T>{
         }
         for (T item : items) {
             if(item == null) continue;
-            temp[k++] = item;
+            if(!search(item)) {
+                temp[k++] = item;
+            }
         }
         reHashing(newLength ,temp);
+        System.out.println(this.allocated - prevAllocated + " elements inserted out of "+ items.length +"\n");
     }
 
     @Override
@@ -108,19 +107,21 @@ public class LinearSpace<T> extends HashTable<T>{
             if(item == null) continue;
             insert(item,true);
         }
+
     }
 
     void output(boolean delete){
-        if(!delete) System.out.println("\nnumber of collisions at the primary table = " + this.collisions);
+        if(!delete) System.out.println("\nNumber Of Collisions at The Primary Table = " + this.collisions);
         else System.out.println();
-        System.out.println("primary table size = " + this.primary_table.size());
+        System.out.println("Primary Table Size = " + this.primary_table.size());
         int sizeSum = 0;
-        for (QuadraticSpace<T> tQuadraticSpace : primary_table) {
-            if (tQuadraticSpace.primaryTable.length == 1 && tQuadraticSpace.primaryTable[0] == null)
+        for (int i = 0; i < primary_table.size(); ++i) {
+            if (this.primary_table.get(i).primaryTable.length == 1 && this.primary_table.get(i).primaryTable[0] == null)
                 continue;
-            sizeSum += tQuadraticSpace.primaryTable.length;
+            sizeSum += this.primary_table.get(i).primaryTable.length;
         }
-        System.out.println("sum of secondary tables sizes = " + sizeSum + "\n");
+        System.out.println("Sum of Secondary Tables Sizes = " + sizeSum );
+        System.out.println("Allocated Elements = " + this.allocated);
     }
 
     void test(){
